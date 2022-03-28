@@ -69,7 +69,7 @@ jobs:
 
             ---
 
-            *Actor: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            *Actor: ${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
 
             // Get the existing comments on this PR.
             const {data: comments} = await github.issues.listComments({

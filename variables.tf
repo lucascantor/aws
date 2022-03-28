@@ -9,6 +9,7 @@ variable "access_key" {
 variable "secret_key" {
   description = "Secret key for Terraform IAM user with full admin privileges"
   type        = string
+  sensitive   = true
 }
 
 # ------------------------------------------------------------------------------------------
