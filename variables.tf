@@ -20,3 +20,9 @@ variable "region" {
   type        = string
   default     = "us-east-1"
 }
+
+variable "terraform_warning" {
+  description = "Warning to configure on resources reminding not to edit them manually"
+  type        = string
+  default     = "DO NOT EDIT - Managed by Terraform"
+}

@@ -20,3 +20,17 @@ resource "aws_route53domains_registered_domain" "domains" {
     Terraform = true
   }
 }
+
+# ------------------------------------------------------------------------------------------
+# Route 53 hosted zones
+
+resource "aws_route53_zone" "hosted_zones" {
+  for_each = { for hosted_zone in local.domains : hosted_zone.immutable_id => hosted_zone }
+
+  name    = each.key
+  comment = var.terraform_warning
+
+  tags = {
+    Terraform = true
+  }
+}
