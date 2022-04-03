@@ -30,7 +30,7 @@ locals {
 }
 
 resource "aws_route53_zone" "hosted_zones" {
-  for_each = { for hosted_zone in local.domains : hosted_zone.immutable_id => hosted_zone }
+  for_each = { for hosted_zone in local.hosted_zones : hosted_zone.immutable_id => hosted_zone }
 
   name    = each.key
   comment = var.terraform_warning
