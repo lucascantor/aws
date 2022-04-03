@@ -15,10 +15,6 @@ resource "aws_route53domains_registered_domain" "domains" {
   registrant_privacy = true
   tech_privacy       = true
   transfer_lock      = true
-
-  tags = {
-    Terraform = true
-  }
 }
 
 # ------------------------------------------------------------------------------------------
@@ -34,8 +30,4 @@ resource "aws_route53_zone" "hosted_zones" {
 
   name    = each.key
   comment = var.terraform_warning
-
-  tags = {
-    Terraform = true
-  }
 }
