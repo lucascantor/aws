@@ -1,10 +1,10 @@
+# ------------------------------------------------------------------------------------------
+# Route 53 registered domains
+
 locals {
   domains_csv = file("domains.csv")
   domains     = csvdecode(local.domains_csv)
 }
-
-# ------------------------------------------------------------------------------------------
-# Route 53 registered domains
 
 resource "aws_route53domains_registered_domain" "domains" {
   for_each = { for domain in local.domains : domain.immutable_id => domain }
@@ -23,6 +23,11 @@ resource "aws_route53domains_registered_domain" "domains" {
 
 # ------------------------------------------------------------------------------------------
 # Route 53 hosted zones
+
+locals {
+  hosted_zones_csv = file("hosted_zones.csv")
+  hosted_zones     = csvdecode(local.hosted_zones_csv)
+}
 
 resource "aws_route53_zone" "hosted_zones" {
   for_each = { for hosted_zone in local.domains : hosted_zone.immutable_id => hosted_zone }
