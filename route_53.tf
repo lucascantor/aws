@@ -31,3 +31,40 @@ resource "aws_route53_zone" "hosted_zones" {
   name    = each.key
   comment = var.terraform_warning
 }
+
+# ------------------------------------------------------------------------------------------
+# lizzythepooch.com
+
+resource "aws_route53_record" "lizzythepooch_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
+  name    = "lizzythepooch.com"
+  type    = "A"
+
+  alias {
+    name                   = var.cloudfront_distribution_domain_names["lizzythepooch.com"]
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "www_lizzythepooch_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
+  name    = "www.lizzythepooch.com"
+  type    = "A"
+
+  alias {
+    name                   = var.cloudfront_distribution_domain_names["lizzythepooch.com"]
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "lizzythepooch_com__MX" {
+  zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
+  name    = "lizzythepooch.com"
+  type    = "MX"
+  ttl     = "3600"
+  records = [
+    "0 .",
+  ]
+}
