@@ -179,7 +179,7 @@ resource "aws_route53_record" "domainkey_natesigal_com__TXT" {
 }
 
 # ------------------------------------------------------------------------------------------
-# nathanielsigal.com and natesigalcom cert validation record(s)
+# nathanielsigal.com and natesigal.com cert validation record(s)
 
 resource "aws_route53_record" "nathanielsigal_com__cert_validation" {
   for_each = {
