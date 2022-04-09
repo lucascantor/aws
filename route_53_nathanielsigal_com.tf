@@ -17,10 +17,10 @@ resource "aws_route53_record" "nathanielsigal_com__NS" {
   type    = "NS"
   ttl     = "172800"
   records = [
-    aws_route53_zone.hosted_zones["nathanielsigal.com"].name_servers[0],
-    aws_route53_zone.hosted_zones["nathanielsigal.com"].name_servers[1],
-    aws_route53_zone.hosted_zones["nathanielsigal.com"].name_servers[2],
-    aws_route53_zone.hosted_zones["nathanielsigal.com"].name_servers[3],
+    "${aws_route53_zone.hosted_zones["nathanielsigal.com"].name_servers[0]}.",
+    "${aws_route53_zone.hosted_zones["nathanielsigal.com"].name_servers[1]}.",
+    "${aws_route53_zone.hosted_zones["nathanielsigal.com"].name_servers[2]}.",
+    "${aws_route53_zone.hosted_zones["nathanielsigal.com"].name_servers[3]}.",
   ]
 }
 
@@ -107,10 +107,10 @@ resource "aws_route53_record" "natesigal_com__NS" {
   type    = "NS"
   ttl     = "172800"
   records = [
-    aws_route53_zone.hosted_zones["natesigal.com"].name_servers[0],
-    aws_route53_zone.hosted_zones["natesigal.com"].name_servers[1],
-    aws_route53_zone.hosted_zones["natesigal.com"].name_servers[2],
-    aws_route53_zone.hosted_zones["natesigal.com"].name_servers[3],
+    "${aws_route53_zone.hosted_zones["natesigal.com"].name_servers[0]}.",
+    "${aws_route53_zone.hosted_zones["natesigal.com"].name_servers[1]}.",
+    "${aws_route53_zone.hosted_zones["natesigal.com"].name_servers[2]}.",
+    "${aws_route53_zone.hosted_zones["natesigal.com"].name_servers[3]}.",
   ]
 }
 
