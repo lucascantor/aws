@@ -131,12 +131,9 @@ resource "aws_route53_record" "lizzythepooch_com__cert_validation" {
     } if substr(dvo.domain_name, 0, 2) != "*."
   }
 
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 300
-  type            = each.value.type
-  zone_id         = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
+  name    = each.value.name
+  records = [each.value.record]
+  ttl     = 300
+  type    = each.value.type
+  zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
 }
-
-
