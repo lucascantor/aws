@@ -35,6 +35,29 @@ resource "aws_route53_zone" "hosted_zones" {
 # ------------------------------------------------------------------------------------------
 # lizzythepooch.com
 
+resource "aws_route53_record" "lizzythepooch_com__SOA" {
+  zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
+  name    = "lizzythepooch.com"
+  type    = "SOA"
+  ttl     = "900"
+  records = [
+    "${aws_route53_zone.hosted_zones["lizzythepooch.com"].name_servers[1]}. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400",
+  ]
+}
+
+resource "aws_route53_record" "lizzythepooch_com__NS" {
+  zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
+  name    = "lizzythepooch.com"
+  type    = "NS"
+  ttl     = "172800"
+  records = [
+    aws_route53_zone.hosted_zones["lizzythepooch.com"].name_servers[0],
+    aws_route53_zone.hosted_zones["lizzythepooch.com"].name_servers[1],
+    aws_route53_zone.hosted_zones["lizzythepooch.com"].name_servers[2],
+    aws_route53_zone.hosted_zones["lizzythepooch.com"].name_servers[3],
+  ]
+}
+
 resource "aws_route53_record" "lizzythepooch_com__A" {
   zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
   name    = "lizzythepooch.com"
@@ -108,3 +131,4 @@ resource "aws_route53_record" "ee1c094eab652e5e9dc62d5fc7e0f75b_lizzythepooch_co
     "_00adc4c4cbe430ccd571fb87dcaf0db9.acm-validations.aws",
   ]
 }
+
