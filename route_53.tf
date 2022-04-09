@@ -68,3 +68,13 @@ resource "aws_route53_record" "lizzythepooch_com__MX" {
     "0 .",
   ]
 }
+
+resource "aws_route53_record" "lizzythepooch_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
+  name    = "lizzythepooch.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=spf1 -all",
+  ]
+}
