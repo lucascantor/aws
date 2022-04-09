@@ -78,3 +78,13 @@ resource "aws_route53_record" "lizzythepooch_com__TXT" {
     "v=spf1 -all",
   ]
 }
+
+resource "aws_route53_record" "_dmarc_lizzythepooch_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
+  name    = "_dmarc_lizzythepooch.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s;fo=1;rua=mailto:dmarc@lizzythepooch.com,mailto:dmarc@lizzythepooch.com",
+  ]
+}
