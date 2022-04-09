@@ -128,7 +128,7 @@ resource "aws_route53_record" "lizzythepooch_com__cert_validation" {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
-    }
+    } if substr(dvo.domain_name, 0, 2) != "*."
   }
 
   allow_overwrite = true
