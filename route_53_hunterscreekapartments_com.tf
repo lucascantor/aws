@@ -7,7 +7,7 @@ resource "aws_route53_record" "hunterscreekapartments_net__SOA" {
   type    = "SOA"
   ttl     = "900"
   records = [
-    "${aws_route53_zone.hosted_zones["hunterscreekapartments.net"].name_servers[3]}. awsdns-hostmaster.amazon.net. 1 7200 900 1209600 86400",
+    "${aws_route53_zone.hosted_zones["hunterscreekapartments.net"].name_servers[2]}. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400",
   ]
 }
 
