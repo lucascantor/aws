@@ -11,3 +11,14 @@ resource "aws_cloudfront_origin_access_identity" "identities" {
 
   comment = "access-identity-${each.key}.s3.amazonaws.com"
 }
+
+# ------------------------------------------------------------------------------------------
+# CloudFront functions
+
+resource "aws_cloudfront_function" "url_rewrite" {
+  name    = "url-rewrite"
+  runtime = "cloudfront-js-1.0"
+  comment = "Adds index.html to viewer requests if missing"
+  publish = true
+  code    = file("cloudfront_functions/url-rewrite.js")
+}
