@@ -1,0 +1,123 @@
+# ------------------------------------------------------------------------------------------
+# lucascantor.com
+
+resource "aws_route53_record" "lucascantor_com__SOA" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "lucascantor.com"
+  type    = "SOA"
+  ttl     = "900"
+  records = [
+    "${aws_route53_zone.hosted_zones["lucascantor.com"].name_servers[2]}. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400",
+  ]
+}
+
+resource "aws_route53_record" "lucascantor_com__NS" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "lucascantor.com"
+  type    = "NS"
+  ttl     = "172800"
+  records = [
+    "${aws_route53_zone.hosted_zones["lucascantor.com"].name_servers[0]}.",
+    "${aws_route53_zone.hosted_zones["lucascantor.com"].name_servers[1]}.",
+    "${aws_route53_zone.hosted_zones["lucascantor.com"].name_servers[2]}.",
+    "${aws_route53_zone.hosted_zones["lucascantor.com"].name_servers[3]}.",
+  ]
+}
+
+resource "aws_route53_record" "lucascantor_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "lucascantor.com"
+  type    = "A"
+
+  alias {
+    name                   = var.cloudfront_distribution_domain_names["lucascantor.com"]
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "www_lucascantor_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "www.lucascantor.com"
+  type    = "A"
+
+  alias {
+    name                   = var.cloudfront_distribution_domain_names["lucascantor.com"]
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "blog_lucascantor_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "blog.lucascantor.com"
+  type    = "A"
+
+  alias {
+    name                   = var.cloudfront_distribution_domain_names["blog.lucascantor.com"]
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "cdn_lucascantor_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "cdn.lucascantor.com"
+  type    = "A"
+
+  alias {
+    name                   = var.cloudfront_distribution_domain_names["cdn.lucascantor.com"]
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "lucascantor_com__MX" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "lucascantor.com"
+  type    = "MX"
+  ttl     = "3600"
+  records = [
+    "0 .",
+  ]
+}
+
+resource "aws_route53_record" "lucascantor_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "lucascantor.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=spf1 -all",
+  ]
+}
+
+resource "aws_route53_record" "dmarc_lucascantor_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "_dmarc.lucascantor.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s;fo=1;rua=mailto:dmarc@lucascantor.com,mailto:dmarc@lucascantor.com",
+  ]
+}
+
+resource "aws_route53_record" "domainkey_lucascantor_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "*._domainkey.lucascantor.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=DKIM1; p=",
+  ]
+}
+
+resource "aws_route53_record" "keybase_lucascantor_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "_keybase.lucascantor.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "keybase-site-verification=6YaEDcIeFqE4omCliW2Jhcp8nSdEsTj3OCQQ75pl5nM",
+  ]
+}
