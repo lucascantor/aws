@@ -161,3 +161,39 @@ resource "aws_route53_record" "ronaldcantor_com__cert_validation" {
   type    = each.value.type
   zone_id = aws_route53_zone.hosted_zones[each.key].zone_id
 }
+
+# ------------------------------------------------------------------------------------------
+# kindredcode.com
+
+resource "aws_acm_certificate" "kindredcode_com" {
+  domain_name = "kindredcode.com"
+  subject_alternative_names = [
+    "*.kindredcode.com",
+    "kindredcode.net",
+    "*.kindredcode.net",
+    "kindredcode.org",
+    "*.kindredcode.org",
+  ]
+  validation_method = "DNS"
+}
+
+resource "aws_acm_certificate_validation" "kindredcode_com" {
+  certificate_arn         = aws_acm_certificate.kindredcode_com.arn
+  validation_record_fqdns = [for record in aws_route53_record.kindredcode_com__cert_validation : record.fqdn]
+}
+
+resource "aws_route53_record" "kindredcode_com__cert_validation" {
+  for_each = {
+    for dvo in aws_acm_certificate.kindredcode_com.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    } if substr(dvo.domain_name, 0, 2) != "*."
+  }
+
+  name    = each.value.name
+  records = [each.value.record]
+  ttl     = 300
+  type    = each.value.type
+  zone_id = aws_route53_zone.hosted_zones[each.key].zone_id
+}
