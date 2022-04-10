@@ -59,10 +59,3 @@ resource "aws_cloudfront_response_headers_policy" "custom_security_headers_polic
     }
   }
 }
-
-# ------------------------------------------------------------------------------------------
-# CloudFront cache policies
-
-data "aws_cloudfront_cache_policy" "caching_optimized" {
-  name = "CachingOptimized"
-}
