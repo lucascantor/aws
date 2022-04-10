@@ -87,22 +87,3 @@ resource "aws_route53_record" "domainkey_lizzythepooch_com__TXT" {
     "v=DKIM1; p=",
   ]
 }
-
-# ------------------------------------------------------------------------------------------
-# lizzythepooch.com cert validation record(s)
-
-resource "aws_route53_record" "lizzythepooch_com__cert_validation" {
-  for_each = {
-    for dvo in aws_acm_certificate.lizzythepooch_com.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    } if substr(dvo.domain_name, 0, 2) != "*."
-  }
-
-  name    = each.value.name
-  records = [each.value.record]
-  ttl     = 300
-  type    = each.value.type
-  zone_id = aws_route53_zone.hosted_zones[each.key].zone_id
-}
