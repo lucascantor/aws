@@ -231,3 +231,35 @@ resource "aws_route53_record" "centerpointwest_com__cert_validation" {
   type    = each.value.type
   zone_id = aws_route53_zone.hosted_zones[each.key].zone_id
 }
+
+# ------------------------------------------------------------------------------------------
+# hunterscreekapartments.net
+
+resource "aws_acm_certificate" "hunterscreekapartments_net" {
+  domain_name = "hunterscreekapartments.net"
+  subject_alternative_names = [
+    "*.hunterscreekapartments.net",
+  ]
+  validation_method = "DNS"
+}
+
+resource "aws_acm_certificate_validation" "hunterscreekapartments_net" {
+  certificate_arn         = aws_acm_certificate.hunterscreekapartments_net.arn
+  validation_record_fqdns = [for record in aws_route53_record.hunterscreekapartments_net__cert_validation : record.fqdn]
+}
+
+resource "aws_route53_record" "hunterscreekapartments_net__cert_validation" {
+  for_each = {
+    for dvo in aws_acm_certificate.hunterscreekapartments_net.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    } if substr(dvo.domain_name, 0, 2) != "*."
+  }
+
+  name    = each.value.name
+  records = [each.value.record]
+  ttl     = 300
+  type    = each.value.type
+  zone_id = aws_route53_zone.hosted_zones[each.key].zone_id
+}
