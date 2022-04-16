@@ -17,4 +17,6 @@ resource "aws_s3_bucket_cors_configuration" "cdn_lucascantor_com_cors_configurat
     expose_headers  = []
     max_age_seconds = 3000
   }
+
+  expected_bucket_owner = var.aws_account_id
 }
