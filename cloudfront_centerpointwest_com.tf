@@ -13,7 +13,7 @@ resource "aws_cloudfront_distribution" "centerpointwest_com" {
     error_caching_min_ttl = 300
     error_code            = 403
     response_code         = 403
-    response_page_path    = "/403.html"
+    response_page_path    = "/404.html"
   }
   custom_error_response {
     error_caching_min_ttl = 300
