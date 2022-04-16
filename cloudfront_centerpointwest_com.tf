@@ -10,13 +10,13 @@ resource "aws_cloudfront_distribution" "centerpointwest_com" {
     "www.centerpointwestapartments.com",
   ]
   custom_error_response {
-    error_caching_min_ttl = 300
+    error_caching_min_ttl = 60
     error_code            = 403
     response_code         = 403
     response_page_path    = "/404.html"
   }
   custom_error_response {
-    error_caching_min_ttl = 300
+    error_caching_min_ttl = 60
     error_code            = 404
     response_code         = 404
     response_page_path    = "/404.html"
