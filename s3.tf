@@ -22,12 +22,18 @@ resource "aws_s3_bucket" "s3_buckets" {
   bucket = each.key
 }
 
+# ------------------------------------------------------------------------------------------
+# S3 Bucket ACLs
+
 resource "aws_s3_bucket_acl" "s3_bucket_private_acls" {
   for_each = { for bucket in local.s3_buckets : bucket.immutable_id => bucket }
 
   bucket = aws_s3_bucket.s3_buckets[each.key].id
   acl    = "private"
 }
+
+# ------------------------------------------------------------------------------------------
+# S3 Bucket policies for CloudFront private content
 
 resource "aws_s3_bucket_policy" "policy_for_cloudfront_private_content" {
   for_each = { for bucket in local.s3_buckets : bucket.immutable_id => bucket
