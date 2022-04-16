@@ -39,7 +39,9 @@ resource "aws_s3_bucket_policy" "policy_for_cloudfront_private_content" {
 }
 
 data "aws_iam_policy_document" "policy_for_cloudfront_private_content" {
-  for_each = { for bucket in local.s3_buckets : bucket.immutable_id => bucket }
+  for_each = { for bucket in local.s3_buckets : bucket.immutable_id => bucket
+    if contains(local.websites[*].immutable_id, bucket.immutable_id)
+  }
 
   policy_id = "PolicyForCloudFrontPrivateContent"
   statement {
