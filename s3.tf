@@ -53,14 +53,11 @@ resource "aws_lambda_permission" "cloudfront_invalidation_lambda" {
   principal           = "s3.amazonaws.com"
   source_account      = var.aws_account_id
   source_arn          = aws_s3_bucket.s3_buckets[each.key].arn
-  statement_id_prefix = "cloudfront_invalidation_lambda"
+  statement_id_prefix = "cloudfront_invalidation_lambda_"
   qualifier           = aws_lambda_alias.cloudfront_invalidation_lambda_latest_alias.name
 }
 
-output "aws_lambda_permission" {
-  value = aws_lambda_permission.cloudfront_invalidation_lambda
-}
-
+/*
 resource "aws_s3_bucket_notification" "cloudfront_invalidation_lambda" {
   for_each = { for bucket in local.s3_buckets : bucket.immutable_id => bucket
     if contains(local.websites[*].immutable_id, bucket.immutable_id)
@@ -79,6 +76,7 @@ resource "aws_s3_bucket_notification" "cloudfront_invalidation_lambda" {
     aws_lambda_permission.cloudfront_invalidation_lambda,
   ]
 }
+*/
 
 # ------------------------------------------------------------------------------------------
 # S3 Bucket ACLs
