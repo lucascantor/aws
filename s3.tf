@@ -36,22 +36,14 @@ resource "aws_s3_bucket" "s3_buckets" {
 
   bucket = each.key
   tags = {
-    distribution_id = try(each.value.cloudfront_distribution_id, null)
+    distribution_id = try(each.value.cloudfront_distribution_id, "none")
   }
 }
 
 # ------------------------------------------------------------------------------------------
 # S3 Bucket notifications to invalidate associated CloudFront distributions
 
-resource "null_resource" "wait_for_lambda_permission" {
-  depends_on = [
-    aws_lambda_permission.cloudfront_invalidation_lambda,
-  ]
-  provisioner "local-exec" {
-    command = "sleep 3m"
-  }
-}
-
+/*
 resource "aws_lambda_permission" "cloudfront_invalidation_lambda" {
   for_each = { for bucket in local.s3_buckets : bucket.immutable_id => bucket
     if contains(local.websites[*].immutable_id, bucket.immutable_id)
@@ -85,6 +77,7 @@ resource "aws_s3_bucket_notification" "cloudfront_invalidation_lambda" {
     aws_lambda_permission.cloudfront_invalidation_lambda,
   ]
 }
+*/
 
 # ------------------------------------------------------------------------------------------
 # S3 Bucket ACLs
