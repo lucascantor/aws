@@ -23,13 +23,13 @@ resource "aws_iam_policy" "policy_for_cloudfront_invalidation_lambda" {
 data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
-
     principals {
       type = "Service"
       identifiers = [
         "lambda.amazonaws.com",
       ]
     }
+    sid = "1"
   }
 }
 
