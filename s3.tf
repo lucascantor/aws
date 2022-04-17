@@ -65,11 +65,12 @@ resource "aws_lambda_permission" "cloudfront_invalidation_lambda" {
     if contains(local.websites[*].immutable_id, bucket.immutable_id)
   }
 
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.cloudfront_invalidation_lambda.function_name
-  principal     = "s3.amazonaws.com"
-  source_arn    = aws_s3_bucket.s3_buckets[each.key].arn
-  qualifier     = aws_lambda_alias.cloudfront_invalidation_lambda_latest_alias.name
+  action         = "lambda:InvokeFunction"
+  function_name  = aws_lambda_function.cloudfront_invalidation_lambda.function_name
+  principal      = "s3.amazonaws.com"
+  source_account = var.aws_account_id
+  source_arn     = aws_s3_bucket.s3_buckets[each.key].arn
+  qualifier      = aws_lambda_alias.cloudfront_invalidation_lambda_latest_alias.name
 }
 
 # ------------------------------------------------------------------------------------------
