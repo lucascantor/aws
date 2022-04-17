@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda_assume
 }
 
 resource "aws_iam_role" "policy_for_cloudfront_invalidation_lambda" {
-  name = "instpolicy_for_cloudfront_invalidation_lambdaance_role"
+  name = "policy_for_cloudfront_invalidation_lambd"
 
   assume_role_policy = data.aws_iam_policy_document.policy_for_cloudfront_invalidation_lambda_assume_role_policy.json
 }
