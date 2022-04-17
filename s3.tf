@@ -73,7 +73,7 @@ data "aws_iam_policy_document" "policy_for_cloudfront_private_content" {
 resource "aws_s3_object" "websites" {
   for_each     = fileset("websites/", "**")
   bucket       = regex("^[^/]*", each.value)
-  content_type = regex(".*\.html$", each.value) ? "text/html" : null
+  content_type = regex(".*\\.html$", each.value) ? "text/html" : null
   etag         = filemd5("websites/${each.value}")
   key          = regex("/.*$", each.value)
   source       = "websites/${each.value}"
