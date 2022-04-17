@@ -53,7 +53,7 @@ resource "aws_lambda_permission" "cloudfront_invalidation_lambda" {
   principal           = "s3.amazonaws.com"
   source_account      = var.aws_account_id
   source_arn          = aws_s3_bucket.s3_buckets[each.key].arn
-  statement_id_prefix = "${each.key}_"
+  statement_id_prefix = "cloudfront_invalidation_lambda"
   qualifier           = aws_lambda_alias.cloudfront_invalidation_lambda_latest_alias.name
 }
 
