@@ -2,7 +2,7 @@
 # Route 53 registered domains
 
 locals {
-  domains_csv = file("domains.csv")
+  domains_csv = file("route_53_domains.csv")
   domains     = csvdecode(local.domains_csv)
 }
 
@@ -21,7 +21,7 @@ resource "aws_route53domains_registered_domain" "domains" {
 # Route 53 hosted zones
 
 locals {
-  hosted_zones_csv = file("hosted_zones.csv")
+  hosted_zones_csv = file("route_53_hosted_zones.csv")
   hosted_zones     = csvdecode(local.hosted_zones_csv)
 }
 
