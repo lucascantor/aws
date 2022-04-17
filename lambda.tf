@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda" {
       "cloudfront:CreateInvalidation",
     ]
     resources = [
-      "*",
+      "arn:aws:cloudfront::${var.aws_account_id}:distribution/*",
     ]
     sid = "1"
   }
