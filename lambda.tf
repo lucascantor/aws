@@ -14,10 +14,34 @@ data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda" {
   }
 }
 
-resource "aws_iam_role" "policy_for_cloudfront_invalidation_lambda" {
+resource "aws_iam_policy" "policy_for_cloudfront_invalidation_lambda" {
   name = "policy_for_cloudfront_invalidation_lambda"
 
   policy = data.aws_iam_policy_document.policy_for_cloudfront_invalidation_lambda.json
+}
+
+data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type = "Service"
+      identifiers = [
+        "lambda.amazonaws.com",
+      ]
+    }
+  }
+}
+
+resource "aws_iam_role" "policy_for_cloudfront_invalidation_lambda" {
+  name = "instpolicy_for_cloudfront_invalidation_lambdaance_role"
+
+  assume_role_policy = data.aws_iam_policy_document.policy_for_cloudfront_invalidation_lambda_assume_role_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "policy_for_cloudfront_invalidation_lambda" {
+  role       = aws_iam_role.policy_for_cloudfront_invalidation_lambda.name
+  policy_arn = aws_iam_policy.policy_for_cloudfront_invalidation_lambda.arn
 }
 
 resource "aws_lambda_function" "cloudfront_invalidation_lambda" {
