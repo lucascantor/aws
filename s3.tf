@@ -56,7 +56,7 @@ resource "aws_s3_bucket_notification" "cloudfront_invalidation_lambda" {
     ]
   }
   depends_on = [
-    aws_lambda_permission.cloudfront_invalidation_lambda[each.key],
+    aws_lambda_permission.cloudfront_invalidation_lambda,
   ]
 }
 
