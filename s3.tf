@@ -105,7 +105,6 @@ data "aws_iam_policy_document" "policy_for_cloudfront_private_content" {
     if contains(local.websites[*].immutable_id, bucket.immutable_id)
   }
 
-  policy_id = "PolicyForCloudFrontPrivateContent"
   statement {
     actions = [
       "s3:GetObject",
