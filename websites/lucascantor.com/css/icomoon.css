@@ -1,0 +1,61 @@
+@font-face {
+  font-family: "icomoon";
+  src: url("../fonts/icomoon.ttf?dup44w") format("truetype"),
+    url("../fonts/icomoon.woff?dup44w") format("woff"),
+    url("../fonts/icomoon.svg?dup44w#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-proof:before {
+  content: "\e902";
+}
+.icon-toot:before {
+  content: "\e900";
+}
+.icon-devices:before {
+  content: "\e000";
+}
+.icon-lock:before {
+  content: "\e020";
+}
+.icon-shield:before {
+  content: "\e022";
+}
+.icon-atom:before {
+  content: "\e046";
+}
+.icon-pin:before {
+  content: "\e047";
+}
+.icon-chat:before {
+  content: "\e049";
+}
+.icon-blog:before {
+  content: "\e903";
+}
+.icon-resume:before {
+  content: "\e901";
+}
+.icon-code:before {
+  content: "\eab0";
+}
+.icon-work:before {
+  content: "\eac9";
+}
