@@ -52,3 +52,9 @@ resource "aws_lambda_function" "cloudfront_invalidation_lambda" {
   role             = aws_iam_role.policy_for_cloudfront_invalidation_lambda.arn
   source_code_hash = filebase64sha256("lambda_functions/lambda_invalidate_cloudfront.zip")
 }
+
+resource "aws_lambda_alias" "cloudfront_invalidation_lambda_latest_alias" {
+  name             = "cloudfront_invalidation_lambda_latest_alias"
+  function_name    = aws_lambda_function.cloudfront_invalidation_lambda.function_name
+  function_version = "$LATEST"
+}
