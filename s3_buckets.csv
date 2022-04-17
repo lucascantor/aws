@@ -1,4 +1,4 @@
-immutable_id
+immutable_id,cloudfront_distribution
 backup.cantor.cloud,backup_cantor_cloud
 cantor.cloud,cantor_cloud
 cdn.lucascantor.com,cdn_lucascantor_com
