@@ -72,7 +72,6 @@ resource "aws_s3_bucket_notification" "cloudfront_invalidation_lambda" {
     aws_lambda_permission.cloudfront_invalidation_lambda,
   ]
 }
-*/
 
 resource "aws_lambda_permission" "cloudfront_invalidation_lambda" {
   for_each = { for bucket in local.s3_buckets : bucket.immutable_id => bucket
@@ -87,6 +86,7 @@ resource "aws_lambda_permission" "cloudfront_invalidation_lambda" {
   statement_id_prefix = "cloudfront_invalidation_lambda_"
   qualifier           = aws_lambda_alias.cloudfront_invalidation_lambda_latest_alias.name
 }
+*/
 
 # ------------------------------------------------------------------------------------------
 # S3 Bucket ACLs
