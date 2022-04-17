@@ -23,7 +23,7 @@ resource "aws_s3_bucket" "s3_buckets" {
 
   bucket = each.key
   tags = {
-    distribution_id = try(replace("${aws_cloudfront_distribution.each.key.id}", ".", "_"), null)
+    distribution_id = try("aws_cloudfront_distribution.${each.value.cloudfront_distribution}.id", null)
   }
 }
 
