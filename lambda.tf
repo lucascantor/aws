@@ -46,7 +46,7 @@ resource "aws_iam_role_policy_attachment" "policy_for_cloudfront_invalidation_la
 
 resource "aws_lambda_function" "cloudfront_invalidation_lambda" {
   filename         = "lambda_functions/lambda_invalidate_cloudfront.zip"
-  function_name    = "lambda_function_name"
+  function_name    = "cloudfront_invalidation_lambda"
   handler          = "lambda_invalidate_cloudfront.lambda_handler"
   runtime          = "python3.9"
   role             = aws_iam_role.policy_for_cloudfront_invalidation_lambda.arn
