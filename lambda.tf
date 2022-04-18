@@ -62,6 +62,12 @@ data "archive_file" "cloudfront_invalidation_lambda_archive_file" {
   output_path = "lambda_functions/lambda_invalidate_cloudfront.zip"
 }
 
+resource "null_resource" "cloudfront_invalidation_lambda_archive_file" {
+  triggers = {
+    hash = data.archive_file.cloudfront_invalidation_lambda_archive_file.output_base64sha256,
+  }
+}
+
 resource "aws_lambda_function" "cloudfront_invalidation_lambda" {
   filename         = "lambda_functions/lambda_invalidate_cloudfront.zip"
   function_name    = "cloudfront_invalidation_lambda"
