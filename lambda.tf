@@ -12,6 +12,17 @@ data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda" {
     ]
     sid = "1"
   }
+  statement {
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
+    resources = [
+      "*",
+    ]
+    sid = "2"
+  }
 }
 
 resource "aws_iam_policy" "policy_for_cloudfront_invalidation_lambda" {
@@ -47,8 +58,8 @@ resource "aws_iam_role_policy_attachment" "policy_for_cloudfront_invalidation_la
 
 data "archive_file" "cloudfront_invalidation_lambda_archive_file" {
   type        = "zip"
-  source_file = "${path.module}/lambda_functions/lambda_invalidate_cloudfront/lambda_invalidate_cloudfront.py"
-  output_path = "${path.module}/lambda_functions/lambda_invalidate_cloudfront.zip"
+  source_dir  = "lambda_functions/lambda_invalidate_cloudfront"
+  output_path = "lambda_functions/lambda_invalidate_cloudfront.zip"
 }
 
 resource "aws_lambda_function" "cloudfront_invalidation_lambda" {
@@ -58,10 +69,7 @@ resource "aws_lambda_function" "cloudfront_invalidation_lambda" {
   publish          = true
   runtime          = "python3.9"
   role             = aws_iam_role.policy_for_cloudfront_invalidation_lambda.arn
-  source_code_hash = filebase64sha256("lambda_functions/lambda_invalidate_cloudfront.zip")
-  depends_on = [
-    data.archive_file.cloudfront_invalidation_lambda_archive_file,
-  ]
+  source_code_hash = data.archive_file.cloudfront_invalidation_lambda_archive_file.output_base64sha256
 }
 
 resource "aws_lambda_alias" "cloudfront_invalidation_lambda_latest_alias" {
