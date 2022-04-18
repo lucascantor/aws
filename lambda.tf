@@ -47,8 +47,8 @@ resource "aws_iam_role_policy_attachment" "policy_for_cloudfront_invalidation_la
 
 data "archive_file" "cloudfront_invalidation_lambda_archive_file" {
   type        = "zip"
-  source_dir  = "lambda_functions/lambda_invalidate_cloudfront/"
-  output_path = "lambda_functions/lambda_invalidate_cloudfront.zip"
+  source_file = "${path.module}/lambda_functions/lambda_invalidate_cloudfront/lambda_invalidate_cloudfront.py"
+  output_path = "${path.module}/lambda_functions/lambda_invalidate_cloudfront.zip"
 }
 
 resource "aws_lambda_function" "cloudfront_invalidation_lambda" {
