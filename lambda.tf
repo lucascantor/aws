@@ -59,6 +59,9 @@ resource "aws_lambda_function" "cloudfront_invalidation_lambda" {
   runtime          = "python3.9"
   role             = aws_iam_role.policy_for_cloudfront_invalidation_lambda.arn
   source_code_hash = filebase64sha256("lambda_functions/lambda_invalidate_cloudfront.zip")
+  depends_on = [
+    data.archive_file.cloudfront_invalidation_lambda_archive_file,
+  ]
 }
 
 resource "aws_lambda_alias" "cloudfront_invalidation_lambda_latest_alias" {
