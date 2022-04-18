@@ -16,12 +16,29 @@ data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda" {
     actions = [
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
+    ]
+    resources = [
+      "arn:aws:logs:*:${var.aws_account_id}:log-group:*",
+    ]
+    sid = "2"
+  }
+  statement {
+    actions = [
       "logs:PutLogEvents",
     ]
     resources = [
-      "*",
+      "arn:aws:logs:*:${var.aws_account_id}:log-group:*:log-stream:*",
     ]
-    sid = "2"
+    sid = "3"
+  }
+  statement {
+    actions = [
+      "s3:GetBucketTagging",
+    ]
+    resources = [
+      "arn:aws:s3:::*",
+    ]
+    sid = "4"
   }
 }
 
