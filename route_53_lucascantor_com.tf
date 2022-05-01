@@ -30,7 +30,7 @@ resource "aws_route53_record" "lucascantor_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["lucascantor.com"]
+    name                   = aws_cloudfront_distribution.lucascantor_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -42,7 +42,7 @@ resource "aws_route53_record" "www_lucascantor_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["lucascantor.com"]
+    name                   = aws_cloudfront_distribution.lucascantor_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -54,7 +54,7 @@ resource "aws_route53_record" "blog_lucascantor_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["blog.lucascantor.com"]
+    name                   = aws_cloudfront_distribution.blog_lucascantor_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -66,7 +66,7 @@ resource "aws_route53_record" "cdn_lucascantor_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["cdn.lucascantor.com"]
+    name                   = aws_cloudfront_distribution.cdn_lucascantor_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }

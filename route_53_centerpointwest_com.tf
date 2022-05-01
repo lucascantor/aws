@@ -30,7 +30,7 @@ resource "aws_route53_record" "centerpointwest_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["centerpointwest.com"]
+    name                   = aws_cloudfront_distribution.centerpointwest_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -42,7 +42,7 @@ resource "aws_route53_record" "www_centerpointwest_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["centerpointwest.com"]
+    name                   = aws_cloudfront_distribution.centerpointwest_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -54,7 +54,7 @@ resource "aws_route53_record" "beta_centerpointwest_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["centerpointwest.com"]
+    name                   = aws_cloudfront_distribution.centerpointwest_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }

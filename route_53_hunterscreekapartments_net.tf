@@ -30,7 +30,7 @@ resource "aws_route53_record" "hunterscreekapartments_net__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["hunterscreekapartments.net"]
+    name                   = aws_cloudfront_distribution.hunterscreekapartments_net.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -42,7 +42,7 @@ resource "aws_route53_record" "www_hunterscreekapartments_net__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["hunterscreekapartments.net"]
+    name                   = aws_cloudfront_distribution.hunterscreekapartments_net.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -54,7 +54,7 @@ resource "aws_route53_record" "beta_hunterscreekapartments_net__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["hunterscreekapartments.net"]
+    name                   = aws_cloudfront_distribution.hunterscreekapartments_net.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
