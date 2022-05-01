@@ -30,7 +30,7 @@ resource "aws_route53_record" "unitizer_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["unitizer.com"]
+    name                   = aws_cloudfront_distribution.unitizer_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -42,7 +42,7 @@ resource "aws_route53_record" "www_unitizer_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["unitizer.com"]
+    name                   = aws_cloudfront_distribution.unitizer_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }

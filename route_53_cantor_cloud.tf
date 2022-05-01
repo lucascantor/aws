@@ -30,7 +30,7 @@ resource "aws_route53_record" "cantor_cloud__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["cantor.cloud"]
+    name                   = aws_cloudfront_distribution.cantor_cloud.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -42,7 +42,7 @@ resource "aws_route53_record" "www_cantor_cloud__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["cantor.cloud"]
+    name                   = aws_cloudfront_distribution.cantor_cloud.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }

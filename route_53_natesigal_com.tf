@@ -30,7 +30,7 @@ resource "aws_route53_record" "natesigal_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["nathanielsigal.com"]
+    name                   = aws_cloudfront_distribution.nathanielsigal_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
@@ -42,7 +42,7 @@ resource "aws_route53_record" "www_natesigal_com__A" {
   type    = "A"
 
   alias {
-    name                   = var.cloudfront_distribution_domain_names["nathanielsigal.com"]
+    name                   = aws_cloudfront_distribution.nathanielsigal_com.domain_name
     zone_id                = var.cloudfront_distribution_zone_id
     evaluate_target_health = false
   }
