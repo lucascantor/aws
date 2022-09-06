@@ -10,11 +10,11 @@ resource "aws_route53domains_registered_domain" "domains" {
   for_each = { for domain in local.domains : domain.immutable_id => domain }
 
   domain_name        = each.key
-  admin_privacy      = true
-  auto_renew         = true
-  registrant_privacy = true
-  tech_privacy       = true
-  transfer_lock      = true
+  admin_privacy      = each.value.admin_privacy == "true" ? true : false
+  auto_renew         = each.value.auto_renew == "true" ? true : false
+  registrant_privacy = each.value.registrant_privacy == "true" ? true : false
+  tech_privacy       = each.value.tech_privacy == "true" ? true : false
+  transfer_lock      = each.value.transfer_lock == "true" ? true : false
 }
 
 # ------------------------------------------------------------------------------------------
