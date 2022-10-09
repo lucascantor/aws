@@ -40,7 +40,7 @@ jobs:
       - name: Summarize Terraform Plan
         id: summarize_plan
         run: |
-          PLAN=$(echo "${{ steps.plan.outputs.stdout }}" | grep -v "Refreshing state...")
+          PLAN=$(echo "${{ steps.plan.outputs.stdout }}" | grep -v -e "Refreshing state..." -e ": Reading..." -e ": Read complete after ")
           PLAN=${PLAN::65000}
           echo 'PLAN_SUMMARY<<EOF' >> $GITHUB_ENV
           echo "$PLAN" >> $GITHUB_ENV
