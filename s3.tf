@@ -51,7 +51,7 @@ resource "aws_lambda_permission" "cloudfront_invalidation_lambda" {
   action              = "lambda:InvokeFunction"
   function_name       = aws_lambda_function.cloudfront_invalidation_lambda.arn
   principal           = "s3.amazonaws.com"
-  source_account      = var.aws_account_id
+  source_account      = data.aws_caller_identity.current.account_id
   source_arn          = aws_s3_bucket.s3_buckets[each.key].arn
   statement_id_prefix = "cloudfront_invalidation_lambda_"
 }
