@@ -21,12 +21,6 @@ variable "region" {
   default     = "us-east-1"
 }
 
-variable "aws_account_id" {
-  description = "The Cantor AWS account ID"
-  type        = string
-  default     = "042672036044"
-}
-
 variable "terraform_warning" {
   description = "Warning to configure on resources reminding not to edit them manually"
   type        = string

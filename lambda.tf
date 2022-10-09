@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda" {
       "cloudfront:CreateInvalidation",
     ]
     resources = [
-      "arn:aws:cloudfront::${var.aws_account_id}:distribution/*",
+      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/*",
     ]
     sid = "1"
   }
@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda" {
       "logs:CreateLogStream",
     ]
     resources = [
-      "arn:aws:logs:*:${var.aws_account_id}:log-group:*",
+      "arn:aws:logs:*:${data.aws_caller_identity.current.account_id}:log-group:*",
     ]
     sid = "2"
   }
@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "policy_for_cloudfront_invalidation_lambda" {
       "logs:PutLogEvents",
     ]
     resources = [
-      "arn:aws:logs:*:${var.aws_account_id}:log-group:*:log-stream:*",
+      "arn:aws:logs:*:${data.aws_caller_identity.current.account_id}:log-group:*:log-stream:*",
     ]
     sid = "3"
   }
