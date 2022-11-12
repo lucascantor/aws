@@ -23,7 +23,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-proof:before {
+.icon-glass:before {
   content: "\e902";
 }
 .icon-toot:before {
