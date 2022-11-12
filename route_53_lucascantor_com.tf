@@ -111,13 +111,3 @@ resource "aws_route53_record" "domainkey_lucascantor_com__TXT" {
     "v=DKIM1; p=",
   ]
 }
-
-resource "aws_route53_record" "keybase_lucascantor_com__TXT" {
-  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
-  name    = "_keybase.lucascantor.com"
-  type    = "TXT"
-  ttl     = "3600"
-  records = [
-    "keybase-site-verification=6YaEDcIeFqE4omCliW2Jhcp8nSdEsTj3OCQQ75pl5nM",
-  ]
-}

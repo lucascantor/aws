@@ -68,16 +68,6 @@ resource "aws_route53_record" "cantor_cloud__TXT" {
   ]
 }
 
-resource "aws_route53_record" "keybase_cantor_cloud__TXT" {
-  zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
-  name    = "_keybase.cantor.cloud"
-  type    = "TXT"
-  ttl     = "3600"
-  records = [
-    "keybase-site-verification=gPdf-7BAy2VqfSY0sfew2kd6TWIL9sVRhZ4c13WO5iM",
-  ]
-}
-
 resource "aws_route53_record" "dmarc_cantor_cloud__TXT" {
   zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
   name    = "_dmarc.cantor.cloud"
