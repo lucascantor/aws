@@ -88,16 +88,6 @@ resource "aws_route53_record" "github_challenge_kindredcode_kindredcode_com__TXT
   ]
 }
 
-resource "aws_route53_record" "keybase_kindredcode_com__TXT" {
-  zone_id = aws_route53_zone.hosted_zones["kindredcode.com"].zone_id
-  name    = "_keybase.kindredcode.com"
-  type    = "TXT"
-  ttl     = "3600"
-  records = [
-    "keybase-site-verification=TCHHa_EQ1hA_fbr_tpYEwUljo7jDwxCuNSh5VyijR18",
-  ]
-}
-
 resource "aws_route53_record" "selector1_domainkey_kindredcode_com__CNAME" {
   zone_id = aws_route53_zone.hosted_zones["kindredcode.com"].zone_id
   name    = "selector1._domainkey.kindredcode.com"
