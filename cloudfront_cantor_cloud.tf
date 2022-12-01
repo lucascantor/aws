@@ -3,7 +3,6 @@
 
 resource "aws_cloudfront_distribution" "cantor_cloud" {
   aliases = [
-    "cantor.cloud",
     "www.cantor.cloud",
   ]
   custom_error_response {
