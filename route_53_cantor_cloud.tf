@@ -28,10 +28,12 @@ resource "aws_route53_record" "cantor_cloud__A" {
   zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
   name    = "cantor.cloud"
   type    = "A"
-  ttl     = 3600
-  records = [
-    "94.23.75.107",
-  ]
+
+  alias {
+    name                   = aws_cloudfront_distribution.cantor_cloud.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
 }
 
 resource "aws_route53_record" "www_cantor_cloud__A" {
