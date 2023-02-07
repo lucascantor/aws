@@ -1,5 +1,6 @@
 locals {
   s3_buckets_csv = templatefile("s3_buckets.csv", {
+    #blakesigal_com_cloudfront_distribution_id             = aws_cloudfront_distribution.blakesigal_com.id,
     cantor_cloud_cloudfront_distribution_id               = aws_cloudfront_distribution.cantor_cloud.id,
     cdn_lucascantor_com_cloudfront_distribution_id        = aws_cloudfront_distribution.cdn_lucascantor_com.id,
     centerpointwest_com_cloudfront_distribution_id        = aws_cloudfront_distribution.centerpointwest_com.id,
