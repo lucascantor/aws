@@ -1,4 +1,5 @@
 immutable_id,admin_privacy,auto_renew,registrant_privacy,tech_privacy,transfer_lock
+blakesigal.com,true,true,true,true,true
 cantor.cloud,true,true,true,true,true
 centerpointwest.com,true,true,true,true,true
 centerpointwestapartments.com,true,true,true,true,true

@@ -1,5 +1,6 @@
 immutable_id,cloudfront_distribution_id
 backup.cantor.cloud,none
+blakesigal.com,${blakesigal_com_cloudfront_distribution_id}
 cantor.cloud,${cantor_cloud_cloudfront_distribution_id}
 cdn.lucascantor.com,${cdn_lucascantor_com_cloudfront_distribution_id}
 centerpointwest.com,${centerpointwest_com_cloudfront_distribution_id}
