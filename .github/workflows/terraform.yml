@@ -10,6 +10,8 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,7 +36,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color
+        run: terraform plan -no-color -input=false
         continue-on-error: true
 
       - name: Summarize Terraform Plan
@@ -47,15 +49,37 @@ jobs:
           echo 'EOF' >> $GITHUB_ENV
         continue-on-error: true
 
-      - uses: actions/github-script@v4
+      - name: Update Pull Request
+        uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
+        # env:
+        #   PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### Terraform Format and Style 🖌 \`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization ⚙️ \`${{ steps.init.outcome }}\`
-            #### Terraform Validation 🤖 \`${{ steps.validate.outcome }}\`
-            #### Terraform Plan 📖 \`${{ steps.plan.outcome }}\`
+            // 1. Retrieve existing bot comments for the PR
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            })
+            const botComment = comments.find(comment => {
+              return comment.user.type === 'Bot' && comment.body.includes('Terraform Format and Style')
+            })
+
+            // 2. Prepare format of the comment
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            <details><summary>Validation Output</summary>
+
+            \`\`\`\n
+            ${{ steps.validate.outputs.stdout }}
+            \`\`\`
+
+            </details>
+
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
             <details><summary>Show Plan Summary (65,000 chars)</summary>
 
@@ -69,30 +93,21 @@ jobs:
 
             ---
 
-            *Actor: ${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            *Pusher: ${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
-            // Get the existing comments on this PR.
-            const {data: comments} = await github.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            })
-
-            // Find any comment already made by the GitHub Actions bot.
-            const botComment = comments.find(comment => comment.user.login === 'github-actions[bot]')
-
+            // 3. If we have a comment, update it, otherwise create a new one
             if (botComment) {
-            await github.issues.updateComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              comment_id: botComment.id,
-              body: output
-            })
-            } else {
-              await github.issues.createComment({
+              github.rest.issues.updateComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: output
+              })
+            } else {
+              github.rest.issues.createComment({
                 issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
                 body: output
               })
             }
@@ -103,4 +118,4 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -input=false
