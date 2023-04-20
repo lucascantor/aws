@@ -33,7 +33,7 @@ resource "aws_cloudfront_response_headers_policy" "custom_security_headers_polic
 
   security_headers_config {
     content_security_policy {
-      content_security_policy = "default-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'; media-src 'self'; script-src 'self'; frame-src 'self'; img-src 'self' https://cdn.lucascantor.com; style-src 'self' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com"
+      content_security_policy = "default-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'; media-src 'self'; script-src 'self' 'sha256-fLy5yEG00y7Rwvrfq4J1+3TjE9gbDJ2fhb0Xhlt2iA8=' 'sha256-l0uXmF1GYYYZ1FYPD8nS8UqzIwKdCYjHdi6fmVn+7dI='; manifest-src 'self'; frame-src 'self'; img-src 'self' https://cdn.lucascantor.com; style-src 'self' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com"
       override                = true
     }
     content_type_options {
