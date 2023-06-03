@@ -65,6 +65,7 @@ resource "aws_route53_record" "kindredcode_com__TXT" {
   ttl     = "3600"
   records = [
     "v=spf1 include:spf.protection.outlook.com -all",
+    "google-site-verification=iCA61zpmcK-WMakf4kxbB4SCE2r0P1knduvt3skSHwY",
   ]
 }
 
