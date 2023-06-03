@@ -65,6 +65,7 @@ resource "aws_route53_record" "cantor_cloud__TXT" {
   ttl     = "3600"
   records = [
     "v=spf1 include:spf.protection.outlook.com -all",
+    "google-site-verification=uuX66DHR88MjdyQ4UxPoNQyYSazX68cR166T8-vOuX8",
   ]
 }
 
