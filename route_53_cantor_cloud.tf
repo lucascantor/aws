@@ -54,7 +54,7 @@ resource "aws_route53_record" "cantor_cloud__MX" {
   type    = "MX"
   ttl     = "3600"
   records = [
-    "0 cantor-cloud.mail.protection.outlook.com.",
+    "1 SMTP.GOOGLE.COM",
   ]
 }
 
@@ -64,7 +64,7 @@ resource "aws_route53_record" "cantor_cloud__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=spf1 include:spf.protection.outlook.com -all",
+    "v=spf1 include:_spf.google.com include:spf.protection.outlook.com ~all",
     "google-site-verification=uuX66DHR88MjdyQ4UxPoNQyYSazX68cR166T8-vOuX8",
   ]
 }

@@ -54,7 +54,7 @@ resource "aws_route53_record" "kindredcode_com__MX" {
   type    = "MX"
   ttl     = "3600"
   records = [
-    "0 kindredcode-com.mail.protection.outlook.com.",
+    "1 SMTP.GOOGLE.COM",
   ]
 }
 
@@ -64,7 +64,7 @@ resource "aws_route53_record" "kindredcode_com__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=spf1 include:spf.protection.outlook.com -all",
+    "v=spf1 include:_spf.google.com include:spf.protection.outlook.com ~all",
     "google-site-verification=iCA61zpmcK-WMakf4kxbB4SCE2r0P1knduvt3skSHwY",
   ]
 }
