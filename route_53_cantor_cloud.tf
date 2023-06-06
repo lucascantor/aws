@@ -79,6 +79,16 @@ resource "aws_route53_record" "dmarc_cantor_cloud__TXT" {
   ]
 }
 
+resource "aws_route53_record" "google_domainkey_cantor_cloud__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
+  name    = "google._domainkey.cantor.cloud"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk4SlHqjyKDHp/KhniPacnNAUDU835MFXUMy4bksaq5XeoZdqhic2BopNg7ruvRoJ0MQUzT3D/A4qbuDZ3oMd2xbU/Lbq2DSbmRww10VAKDIzd5nEbN17IwANvrCXNE44RyqWrQTDMyd3C4QTCmbWIVqbepTRvM+2NE4TVp1M9CmrVGD+iOSWAXEgzrDBdWcwxNdohQPW8pZ5sbwDxFoIAu+yOZKpkrTelHmcPb/zECRWC4fpT3792BIRHogTPs5une+tZJdA8ooux7IhnPVjntKT1fISyHxuuX1MwCRwMNVk48pGhcdkUvZLyJYnN6lhXVktrffxzLqcoMyNaZtEtQIDAQAB",
+  ]
+}
+
 resource "aws_route53_record" "selector1_domainkey_cantor_cloud__CNAME" {
   zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
   name    = "selector1._domainkey.cantor.cloud"
