@@ -85,7 +85,7 @@ resource "aws_route53_record" "google_domainkey_cantor_cloud__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk4SlHqjyKDHp/KhniPacnNAUDU835MFXUMy4bksaq5XeoZdqhic2BopNg7ruvRoJ0MQUzT3D/A4qbuDZ3oMd2xbU/Lbq2DSbmRww10VAKDIzd5nEbN17IwANvrCXNE44RyqWrQTDMyd3C4QTCmbWIVqbepTRvM+2NE4TVp1M9CmrVGD+iOSWAXEgzrDBdWcwxNdohQPW8pZ5sbwDxFoIAu+yOZKpkrTelHmcPb/zECRWC4fpT3792BIRHogTPs5une+tZJdA8ooux7IhnPVjntKT1fISyHxuuX1MwCRwMNVk48pGhcdkUvZLyJYnN6lhXVktrffxzLqcoMyNaZtEtQIDAQAB",
+    "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCaX6HMcezMI6MnOpByy3PouRWDvwq86Sm+ZxDlZSXewyEoYR/dpEmHsW7vNq3n5kvFWx0I1ZhLInl+pNietrHHb0KE+Q9AXFJfNeV+f+tztS4ZjbpTvsg75mXmbvsuXSL9uTPpg+YoR3+qirQQ7Yhkq7QGDiHOevh84MljuO25MwIDAQAB",
   ]
 }
 

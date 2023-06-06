@@ -85,7 +85,7 @@ resource "aws_route53_record" "google_domainkey_kindredcode_com__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnoc1Ne5qL2aM3ezG8MDb5WBaX84aGQwtDUGdL/lcNXi8PnM3Ok9xJVuVMA5L1zBJvAgtz/djU9yliqmd8mhTApwPfTxDfVDj2kbw0wcsF+BRhDxp2tTHanfrJAu/OP6fQYfggto0KTVzVrwzj12fd+oqH0wrqjjxgi3q+qSB0q8c9SDK7cxamJlXITtTegv8PA3XHzbW79JEKkL2RtTY1OeM2fWoAtO1IXOeDGkKQ4b4kX2RuC+X94AdwdAWEaei54s+024h47l7EAWMs8FdplD4zN6+H+0f/CdKKDiz3M0FDFPUEwUmed6kIsgAHy/xASucGO08diG76mjA079mPwIDAQAB",
+    "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrvhdbY90xIbQsqyZLXYOeL7z7q55KLPHzFnaZ1k+WQ1BLaB/gZK6z9GzSaUNNfdnULLsBzd8D3zqFtsjpw+qQ+/B0wjY0NhuSrWx7DyjZYIRwyGa0aUc3LP+fNIdWf+E/v+EcxbMKQk7+NJFljp3zI4OBZTvOyxEkKSVCySkjBwIDAQAB",
   ]
 }
 
