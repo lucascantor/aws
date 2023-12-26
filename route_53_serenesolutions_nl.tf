@@ -7,7 +7,7 @@ resource "aws_route53_record" "serenesolutions_nl__SOA" {
   type    = "SOA"
   ttl     = "900"
   records = [
-    "${aws_route53_zone.hosted_zones["serenesolutions.nl"].name_servers[0]}. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400",
+    "${aws_route53_zone.hosted_zones["serenesolutions.nl"].name_servers[1]}. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400",
   ]
 }
 
