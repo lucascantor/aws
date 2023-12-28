@@ -11,5 +11,6 @@ lizzythepooch.com,${lizzythepooch_com_cloudfront_distribution_id}
 lucascantor.com,${lucascantor_com_cloudfront_distribution_id}
 nathanielsigal.com,${nathanielsigal_com_cloudfront_distribution_id}
 ronaldcantor.com,${ronaldcantor_com_cloudfront_distribution_id}
+serenesolutions.nl,none
 unitizer.com,${unitizer_com_cloudfront_distribution_id}
 williamsigal.com,${williamsigal_com_cloudfront_distribution_id}

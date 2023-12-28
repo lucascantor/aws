@@ -24,6 +24,30 @@ resource "aws_route53_record" "serenesolutions_nl__NS" {
   ]
 }
 
+resource "aws_route53_record" "serenesolutions_nl__A" {
+  zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
+  name    = "serenesolutions.nl"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.serenesolutions_nl.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "www_serenesolutions_nl__A" {
+  zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
+  name    = "www.serenesolutions.nl"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.serenesolutions_nl.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_route53_record" "serenesolutions_nl__MX" {
   zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
   name    = "serenesolutions.nl"

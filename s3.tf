@@ -11,6 +11,7 @@ locals {
     lucascantor_com_cloudfront_distribution_id            = aws_cloudfront_distribution.lucascantor_com.id,
     nathanielsigal_com_cloudfront_distribution_id         = aws_cloudfront_distribution.nathanielsigal_com.id,
     ronaldcantor_com_cloudfront_distribution_id           = aws_cloudfront_distribution.ronaldcantor_com.id,
+    serenesolutions_nl_cloudfront_distribution_id         = aws_cloudfront_distribution.serenesolutions_nl.id,
     unitizer_com_cloudfront_distribution_id               = aws_cloudfront_distribution.unitizer_com.id,
     williamsigal_com_cloudfront_distribution_id           = aws_cloudfront_distribution.williamsigal_com.id,
   })
