@@ -4,7 +4,7 @@ Repo to build the `Cantor` AWS org via infrastructure-as-code
 
 ## Build Status
 
-![Terraform](https://github.com/lucascantor/aws/workflows/Terraform/badge.svg?branch=main)
+![Terraform](https://github.com/lucascantor/aws/workflows/Terraform%20Apply/badge.svg?branch=main)
 
 ## Contributing
 
