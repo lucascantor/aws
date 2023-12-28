@@ -8,24 +8,18 @@ resource "aws_iam_account_alias" "alias" {
 # ------------------------------------------------------------------------------------------
 # IAM OIDC identity providers
 
+data "tls_certificate" "tfc_certificate" {
+  url = "https://${var.tfc_hostname}"
+}
+
 resource "aws_iam_openid_connect_provider" "terraform_cloud" {
-  url = "https://app.terraform.io"
-
-  client_id_list = [
-    "aws.workload.identity",
-  ]
-
-  thumbprint_list = [
-    "9E99A48A9960B14926BB7F3B02E22DA2B0AB7280",
-  ]
+  url             = data.tls_certificate.tfc_certificate.url
+  client_id_list  = [var.tfc_aws_audience]
+  thumbprint_list = [data.tls_certificate.tfc_certificate.certificates[0].sha1_fingerprint]
 }
 
 # ------------------------------------------------------------------------------------------
 # IAM users
-
-resource "aws_iam_user" "terraform" {
-  name = "terraform"
-}
 
 resource "aws_iam_user" "lucas" {
   name = "lucas"
@@ -42,7 +36,6 @@ resource "aws_iam_group_membership" "admin" {
   name = "tf-admin-group-membership"
 
   users = [
-    aws_iam_user.terraform.name,
     aws_iam_user.lucas.name,
   ]
 
@@ -57,22 +50,24 @@ resource "aws_iam_role" "terraform_cloud_sts_assumption_role" {
 
   assume_role_policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "${aws_iam_openid_connect_provider.terraform_cloud.arn}"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "app.terraform.io:aud": "aws.workload.identity",
-                    "app.terraform.io:sub": "organization:unitizer:project:*:workspace:aws:run_phase:*"
-                }
-            }
-        }
-    ]
+ "Version": "2012-10-17",
+ "Statement": [
+   {
+     "Effect": "Allow",
+     "Principal": {
+       "Federated": "${aws_iam_openid_connect_provider.terraform_cloud.arn}"
+     },
+     "Action": "sts:AssumeRoleWithWebIdentity",
+     "Condition": {
+       "StringEquals": {
+         "${var.tfc_hostname}:aud": "${one(aws_iam_openid_connect_provider.terraform_cloud.client_id_list)}"
+       },
+       "StringLike": {
+         "${var.tfc_hostname}:sub": "organization:${var.tfc_organization_name}:project:${var.tfc_project_name}:workspace:${var.tfc_workspace_name}:run_phase:*"
+       }
+     }
+   }
+ ]
 }
 EOF
 }
