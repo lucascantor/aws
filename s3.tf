@@ -80,11 +80,13 @@ resource "aws_s3_bucket_notification" "cloudfront_invalidation_lambda" {
 # ------------------------------------------------------------------------------------------
 # S3 Bucket ACLs
 
-resource "aws_s3_bucket_acl" "s3_bucket_private_acls" {
+resource "aws_s3_bucket_ownership_controls" "s3_bucket_ownership_controls" {
   for_each = { for bucket in local.s3_buckets : bucket.immutable_id => bucket }
 
   bucket = aws_s3_bucket.s3_buckets[each.key].id
-  acl    = "private"
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
 }
 
 # ------------------------------------------------------------------------------------------
