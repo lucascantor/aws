@@ -179,16 +179,19 @@
 /* NOTE
 html is set to 62.5% so that all the REM measurements throughout Skeleton
 are based on 10px sizing. So basically 1.5rem = 15px :) */
+
 html {
   font-size: 62.5%;
 }
 body {
   font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
   line-height: 1.6;
-  font-weight: 400;
-  font-family: "Montserrat", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
+  font-weight: normal;
+  font-family: PT Sans, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, Segoe UI, Roboto, SF Pro, Helvetica, Arial, Noto Sans,
     sans-serif;
-  color: #222;
+  color: hsl(217, 5%, 10%);
+  background-color: #fffc33;
 }
 .hero {
   margin-top: 10%;
@@ -197,8 +200,8 @@ body {
 /* Text and background color for dark mode */
 @media (prefers-color-scheme: dark) {
   body {
-    color: #ddd;
-    background-color: #222;
+    color: hsl(217, 5%, 70%);
+    background-color: hsl(217, 5%, 10%);
   }
 }
 
@@ -218,6 +221,7 @@ h1 {
   font-size: 3.7rem;
   line-height: 1.2;
   letter-spacing: -0.1rem;
+  text-align: center;
 }
 h2 {
   font-size: 3.6rem;
@@ -269,6 +273,27 @@ h6 {
 
 p {
   margin-top: 0;
+}
+
+/* Images
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+img.top {
+  vertical-align: text-top;
+}
+img.bottom {
+  vertical-align: text-bottom;
+}
+img.middle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+img.myphoto {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 /* Links
@@ -535,7 +560,8 @@ hr {
   margin-top: 3rem;
   margin-bottom: 3.5rem;
   border-width: 0;
-  border-top: 1px solid #e1e1e1;
+  border-top: 2px solid;
+  color: inherit;
 }
 
 /* Clearing
