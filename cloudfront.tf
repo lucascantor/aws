@@ -33,7 +33,7 @@ resource "aws_cloudfront_response_headers_policy" "custom_security_headers_polic
 
   security_headers_config {
     content_security_policy {
-      content_security_policy = "default-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; media-src 'self'; script-src 'self' 'sha256-fLy5yEG00y7Rwvrfq4J1+3TjE9gbDJ2fhb0Xhlt2iA8=' 'sha256-x7uqmIfkWN6rzmKPSBW2prET6ykmbHpGX0HYPMksA7g='; manifest-src 'self'; frame-src 'self'; img-src 'self' https://cdn.lucascantor.com; style-src 'self' 'sha256-l0uXmF1GYYYZ1FYPD8nS8UqzIwKdCYjHdi6fmVn+7dI=' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com"
+      content_security_policy = var.content_security_policy
       override                = true
     }
     content_type_options {
@@ -57,6 +57,48 @@ resource "aws_cloudfront_response_headers_policy" "custom_security_headers_polic
       mode_block = true
       override   = true
       protection = true
+    }
+  }
+}
+
+resource "aws_cloudfront_response_headers_policy" "custom_security_headers_cdn_policy" {
+  name    = "CustomSecurityHeadersCDNPolicy"
+  comment = "Adds a set of security headers to every response"
+
+  security_headers_config {
+    content_security_policy {
+      content_security_policy = var.content_security_policy
+      override                = true
+    }
+    content_type_options {
+      override = true
+    }
+    frame_options {
+      frame_option = "DENY"
+      override     = true
+    }
+    referrer_policy {
+      referrer_policy = "same-origin"
+      override        = true
+    }
+    strict_transport_security {
+      access_control_max_age_sec = 63072000
+      include_subdomains         = true
+      override                   = true
+      preload                    = true
+    }
+    xss_protection {
+      mode_block = true
+      override   = true
+      protection = true
+    }
+  }
+
+  custom_headers_config {
+    items {
+      header   = "X-Robots-Tag"
+      value    = "noindex"
+      override = true
     }
   }
 }
