@@ -1,6 +1,36 @@
 # ------------------------------------------------------------------------------------------
 # Variables
 
+variable "github_actions_aws_audience" {
+  type        = string
+  default     = "sts.amazonaws.com"
+  description = "The audience value to use in run identity tokens"
+}
+
+variable "github_actions_hostname" {
+  type        = string
+  default     = "token.actions.githubusercontent.com"
+  description = "URL of the GitHub OIDC IdP to use with AWS"
+}
+
+variable "github_actions_organization_name" {
+  type        = string
+  default     = "lucascantor"
+  description = "The name of the GitHub organization to use with AWS"
+}
+
+variable "github_actions_repo_name" {
+  type        = string
+  default     = "blog.lucascantor.com"
+  description = "The name of the GitHub repo to use with AWS"
+}
+
+variable "github_actions_branch_name" {
+  type        = string
+  default     = "master"
+  description = "The name of the GitHub repo branch to use with AWS"
+}
+
 variable "tfc_aws_audience" {
   type        = string
   default     = "aws.workload.identity"
