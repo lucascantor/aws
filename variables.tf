@@ -9,7 +9,7 @@ variable "github_actions_aws_audience" {
 
 variable "github_actions_hostname" {
   type        = string
-  default     = "token.actions.githubusercontent.com"
+  default     = "https://token.actions.githubusercontent.com"
   description = "URL of the GitHub OIDC IdP to use with AWS"
 }
 
