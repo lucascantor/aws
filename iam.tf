@@ -78,7 +78,7 @@ resource "aws_iam_role" "github_actions_sts_assumption_role" {
      "Condition": {
        "StringEquals": {
          "token.actions.githubusercontent.com:sub": "repo: ${var.github_actions_organization_name}/${var.github_actions_repo_name}>:ref:refs/heads/${var.github_actions_branch_name}",
-         "token.actions.githubusercontent.com:aud": var.var.github_actions_aws_audience
+         "token.actions.githubusercontent.com:aud": var.github_actions_aws_audience
        }
      }
    }
