@@ -134,12 +134,15 @@ data "aws_iam_policy_document" "blog_lucascantor_com_s3" {
     effect = "Allow"
 
     actions = [
+      "s3:List*",
+      "s3:Describe*",
+      "s3:Get*",
       "s3:PutObject",
-      "s3:GetObject",
       "s3:DeleteObject"
     ]
 
     resources = [
+      "arn:aws:s3:::blog.lucascantor.com",
       "arn:aws:s3:::blog.lucascantor.com/*",
     ]
   }
