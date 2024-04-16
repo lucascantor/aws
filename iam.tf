@@ -160,5 +160,5 @@ resource "aws_iam_role_policy_attachment" "terraform_cloud_sts_assumption_role_a
 # Attachment of policy granting read-write access to blog.lucascantor.com S3 bucket to GitHub Actions STS assumption role
 resource "aws_iam_role_policy_attachment" "github_actions_sts_assumption_role_admin_policy" {
   role       = aws_iam_role.github_actions_sts_assumption_role.name
-  policy_arn = data.aws_iam_policy.blog_lucascantor_com_s3.arn
+  policy_arn = resource.aws_iam_policy.blog_lucascantor_com_s3.arn
 }
