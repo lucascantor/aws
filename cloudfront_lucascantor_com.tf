@@ -92,27 +92,16 @@ resource "aws_cloudfront_distribution" "blog_lucascantor_com" {
     cache_policy_id            = local.managed_cloudfront_caching_optimized_policy_id
     compress                   = true
     response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_security_headers_policy.id
-    target_origin_id           = "Custom-lucascantor.github.io/blog.lucascantor.com"
+    target_origin_id           = "S3-blog.lucascantor.com"
     viewer_protocol_policy     = "redirect-to-https"
   }
   enabled         = true
   is_ipv6_enabled = true
   origin {
-    connection_attempts = 3
-    connection_timeout  = 10
-    domain_name         = "lucascantor.github.io"
-    origin_id           = "Custom-lucascantor.github.io/blog.lucascantor.com"
-    origin_path         = "/blog.lucascantor.com"
-    custom_origin_config {
-      http_port                = "80"
-      https_port               = "443"
-      origin_keepalive_timeout = 5
-      origin_protocol_policy   = "https-only"
-      origin_ssl_protocols = [
-        "TLSv1",
-        "TLSv1.1",
-        "TLSv1.2",
-      ]
+    domain_name = "blog.lucascantor.com.s3.amazonaws.com"
+    origin_id   = "S3-blog.lucascantor.com"
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.identities["blog.lucascantor.com"].cloudfront_access_identity_path
     }
   }
   restrictions {
