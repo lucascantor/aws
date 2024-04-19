@@ -100,3 +100,23 @@ resource "aws_route53_record" "google_domainkey_cantor_cloud__TXT" {
     "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCaX6HMcezMI6MnOpByy3PouRWDvwq86Sm+ZxDlZSXewyEoYR/dpEmHsW7vNq3n5kvFWx0I1ZhLInl+pNietrHHb0KE+Q9AXFJfNeV+f+tztS4ZjbpTvsg75mXmbvsuXSL9uTPpg+YoR3+qirQQ7Yhkq7QGDiHOevh84MljuO25MwIDAQAB",
   ]
 }
+
+resource "aws_route53_record" "smtp_tls_cantor_cloud__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
+  name    = "_smtp._tls.cantor.cloud"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=TLSRPTv1; rua=mailto:mta-sts@cantor.cloud,mailto:cantor-d@tlsrpt.report-uri.com",
+  ]
+}
+
+resource "aws_route53_record" "mta_sts_cantor_cloud__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
+  name    = "_mta-sts.cantor.cloud"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=STSv1; id=2024041901",
+  ]
+}

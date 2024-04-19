@@ -10,7 +10,7 @@ hunterscreekapartments.net,${hunterscreekapartments_net_cloudfront_distribution_
 kindredcode.com,${kindredcode_com_cloudfront_distribution_id}
 lizzythepooch.com,${lizzythepooch_com_cloudfront_distribution_id}
 lucascantor.com,${lucascantor_com_cloudfront_distribution_id}
-mta-sts.cantor.cloud,none
+mta-sts.cantor.cloud,${mta_sts_cantor_cloud_cloudfront_distribution_id}
 nathanielsigal.com,${nathanielsigal_com_cloudfront_distribution_id}
 ronaldcantor.com,${ronaldcantor_com_cloudfront_distribution_id}
 serenesolutions.nl,${serenesolutions_nl_cloudfront_distribution_id}
