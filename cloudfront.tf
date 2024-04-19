@@ -66,6 +66,12 @@ resource "aws_cloudfront_response_headers_policy" "custom_response_headers_polic
       value    = var.report_to_response_header
       override = true
     }
+
+    items {
+      header   = "NEL"
+      value    = var.nel_response_header
+      override = true
+    }
   }
 }
 
@@ -146,6 +152,12 @@ resource "aws_cloudfront_response_headers_policy" "custom_response_headers_polic
     items {
       header   = "Report-To"
       value    = var.report_to_response_header
+      override = true
+    }
+
+    items {
+      header   = "NEL"
+      value    = var.nel_response_header
       override = true
     }
   }
