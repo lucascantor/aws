@@ -38,7 +38,7 @@ resource "aws_cloudfront_distribution" "kindredcode_com" {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.url_rewrite.arn
     }
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_security_headers_policy.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_legacy.id
     target_origin_id           = "S3-kindredcode.com"
     viewer_protocol_policy     = "redirect-to-https"
   }

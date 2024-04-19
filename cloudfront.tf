@@ -27,13 +27,55 @@ resource "aws_cloudfront_function" "url_rewrite" {
 # ------------------------------------------------------------------------------------------
 # CloudFront response headers policies
 
-resource "aws_cloudfront_response_headers_policy" "custom_security_headers_policy" {
-  name    = "CustomSecurityHeadersPolicy"
+resource "aws_cloudfront_response_headers_policy" "custom_response_headers_policy_default" {
+  name    = "CustomResponseHeadersPolicyDefault"
+  comment = "Adds a set of security headers to every response, and a Report-To header to report violations to a specified URL"
+
+  security_headers_config {
+    content_security_policy {
+      content_security_policy = var.content_security_policy.default
+      override                = true
+    }
+    content_type_options {
+      override = true
+    }
+    frame_options {
+      frame_option = "DENY"
+      override     = true
+    }
+    referrer_policy {
+      referrer_policy = "same-origin"
+      override        = true
+    }
+    strict_transport_security {
+      access_control_max_age_sec = 63072000
+      include_subdomains         = true
+      override                   = true
+      preload                    = true
+    }
+    xss_protection {
+      mode_block = true
+      override   = true
+      protection = true
+    }
+  }
+
+  custom_headers_config {
+    items {
+      header   = "Report-To"
+      value    = var.report_to_response_header
+      override = true
+    }
+  }
+}
+
+resource "aws_cloudfront_response_headers_policy" "custom_response_headers_policy_legacy" {
+  name    = "CustomResponseHeadersPolicyLegacy"
   comment = "Adds a set of security headers to every response"
 
   security_headers_config {
     content_security_policy {
-      content_security_policy = var.content_security_policy
+      content_security_policy = var.content_security_policy.legacy
       override                = true
     }
     content_type_options {
@@ -61,13 +103,13 @@ resource "aws_cloudfront_response_headers_policy" "custom_security_headers_polic
   }
 }
 
-resource "aws_cloudfront_response_headers_policy" "custom_security_headers_cdn_policy" {
-  name    = "CustomSecurityHeadersCDNPolicy"
-  comment = "Adds a set of security headers to every response"
+resource "aws_cloudfront_response_headers_policy" "custom_response_headers_policy_cdn" {
+  name    = "CustomResponseHeadersPolicyCDN"
+  comment = "Adds a set of security headers to every response, and an X-Robots-Tag header to prevent indexing"
 
   security_headers_config {
     content_security_policy {
-      content_security_policy = var.content_security_policy
+      content_security_policy = var.content_security_policy.legacy
       override                = true
     }
     content_type_options {

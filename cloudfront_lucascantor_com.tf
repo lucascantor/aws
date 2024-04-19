@@ -34,7 +34,7 @@ resource "aws_cloudfront_distribution" "lucascantor_com" {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.url_rewrite.arn
     }
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_security_headers_policy.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_legacy.id
     target_origin_id           = "S3-lucascantor.com"
     viewer_protocol_policy     = "redirect-to-https"
   }
@@ -95,7 +95,7 @@ resource "aws_cloudfront_distribution" "blog_lucascantor_com" {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.url_rewrite.arn
     }
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_security_headers_policy.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_legacy.id
     target_origin_id           = "S3-blog.lucascantor.com"
     viewer_protocol_policy     = "redirect-to-https"
   }
@@ -140,7 +140,7 @@ resource "aws_cloudfront_distribution" "cdn_lucascantor_com" {
     ]
     cache_policy_id            = local.managed_cloudfront_caching_optimized_policy_id
     compress                   = true
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_security_headers_cdn_policy.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_cdn.id
     target_origin_id           = "S3-cdn.lucascantor.com"
     viewer_protocol_policy     = "redirect-to-https"
   }
