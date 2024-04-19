@@ -142,5 +142,11 @@ resource "aws_cloudfront_response_headers_policy" "custom_response_headers_polic
       value    = "noindex"
       override = true
     }
+
+    items {
+      header   = "Report-To"
+      value    = var.report_to_response_header
+      override = true
+    }
   }
 }
