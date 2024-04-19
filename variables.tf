@@ -91,11 +91,24 @@ variable "content_security_policy" {
 variable "report_to_response_header" {
   description = "The Report-To HTTP response header that CloudFront includes in the response to the viewer for the reporting API"
   type        = string
-  default     = "{\"group\":\"default\",\"max_age\":31536000,\"endpoints\":[{\"url\":\"https://cantor.report-uri.com/a/d/g\"}],\"include_subdomains\":true}"
+  default     = <<EOF
+{
+  "group": "default",
+  "max_age": 31536000,
+  "endpoints": [{ "url": "https://cantor.report-uri.com/a/d/g" }],
+  "include_subdomains": true
+}
+EOF
 }
 
 variable "nel_response_header" {
   description = "The NEL HTTP response header that CloudFront includes in the response to the viewer for the reporting API"
   type        = string
-  default     = "{\"report_to\":\"default\",\"max_age\":31536000,\"include_subdomains\":true}"
+  default     = <<EOF
+{
+  "report_to": "default",
+  "max_age": 31536000,
+  "include_subdomains": true
+}
+EOF
 }

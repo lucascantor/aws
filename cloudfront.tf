@@ -29,7 +29,7 @@ resource "aws_cloudfront_function" "url_rewrite" {
 
 resource "aws_cloudfront_response_headers_policy" "custom_response_headers_policy_default" {
   name    = "CustomResponseHeadersPolicyDefault"
-  comment = "Adds a set of security headers to every response, and a Report-To header to report violations to a specified URL"
+  comment = "Adds a set of security headers to every response, and a Report-To header and an NEL header for reporting"
 
   security_headers_config {
     content_security_policy {
@@ -111,7 +111,7 @@ resource "aws_cloudfront_response_headers_policy" "custom_response_headers_polic
 
 resource "aws_cloudfront_response_headers_policy" "custom_response_headers_policy_cdn" {
   name    = "CustomResponseHeadersPolicyCDN"
-  comment = "Adds a set of security headers to every response, and an X-Robots-Tag header to prevent indexing"
+  comment = "Adds a set of security headers to every response, an X-Robots-Tag header to prevent indexing, and a Report-To header and an NEL header for reporting"
 
   security_headers_config {
     content_security_policy {
