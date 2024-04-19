@@ -10,6 +10,7 @@ locals {
     kindredcode_com_cloudfront_distribution_id            = aws_cloudfront_distribution.kindredcode_com.id,
     lizzythepooch_com_cloudfront_distribution_id          = aws_cloudfront_distribution.lizzythepooch_com.id,
     lucascantor_com_cloudfront_distribution_id            = aws_cloudfront_distribution.lucascantor_com.id,
+    mta_sts_cantor_cloud_cloudfront_distribution_id       = aws_cloudfront_distribution.mta_sts_cantor_cloud.id,
     nathanielsigal_com_cloudfront_distribution_id         = aws_cloudfront_distribution.nathanielsigal_com.id,
     ronaldcantor_com_cloudfront_distribution_id           = aws_cloudfront_distribution.ronaldcantor_com.id,
     serenesolutions_nl_cloudfront_distribution_id         = aws_cloudfront_distribution.serenesolutions_nl.id,

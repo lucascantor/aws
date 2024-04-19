@@ -48,6 +48,18 @@ resource "aws_route53_record" "www_cantor_cloud__A" {
   }
 }
 
+resource "aws_route53_record" "mta_sts_cantor_cloud__A" {
+  zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
+  name    = "mta-sts.cantor.cloud"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.mta_sts_cantor_cloud.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_route53_record" "cantor_cloud__MX" {
   zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
   name    = "cantor.cloud"
