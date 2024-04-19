@@ -74,7 +74,7 @@ resource "aws_route53_record" "dmarc_francesca_and_lucas_com__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s;fo=1;rua=mailto:dmarc@francesca-and-lucas.com,mailto:dmarc@francesca-and-lucas.com",
+    "v=DMARC1; p=reject; rua=mailto:dmarc@francesca-and-lucas.com,mailto:cantor-d@dmarc.report-uri.com; ruf=mailto:dmarc@francesca-and-lucas.com; fo=1; pct=100; adkim=s; aspf=s",
   ]
 }
 

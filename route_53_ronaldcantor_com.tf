@@ -74,7 +74,7 @@ resource "aws_route53_record" "dmarc_ronaldcantor_com__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s;fo=1;rua=mailto:dmarc@ronaldcantor.com,mailto:dmarc@ronaldcantor.com",
+    "v=DMARC1; p=reject; rua=mailto:dmarc@ronaldcantor.com,mailto:cantor-d@dmarc.report-uri.com; ruf=mailto:dmarc@ronaldcantor.com; fo=1; pct=100; adkim=s; aspf=s",
   ]
 }
 
