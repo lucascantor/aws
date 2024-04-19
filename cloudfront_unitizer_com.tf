@@ -18,7 +18,7 @@ resource "aws_cloudfront_distribution" "unitizer_com" {
     ]
     cache_policy_id            = local.managed_cloudfront_caching_optimized_policy_id
     compress                   = true
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_legacy.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_default.id
     target_origin_id           = "S3-unitizer.com"
     viewer_protocol_policy     = "redirect-to-https"
   }
