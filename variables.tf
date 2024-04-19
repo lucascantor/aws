@@ -93,3 +93,9 @@ variable "report_to_response_header" {
   type        = string
   default     = "Report-To: {\"group\":\"default\",\"max_age\":31536000,\"endpoints\":[{\"url\":\"https://cantor.report-uri.com/a/d/g\"}],\"include_subdomains\":true}"
 }
+
+variable "nel_response_header" {
+  description = "The NEL HTTP response header that CloudFront includes in the response to the viewer for the reporting API"
+  type        = string
+  default     = "NEL: {\"report_to\":\"default\",\"max_age\":31536000,\"include_subdomains\":true}"
+}
