@@ -75,7 +75,7 @@ resource "aws_route53_record" "dmarc_serenesolutions_nl__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DMARC1; p=reject; pct=100; fo=1; adkim=s; aspf=s; rua=mailto:dmarc@serenesolutions.nl; ruf=mailto:dmarc@serenesolutions.nl",
+    "v=DMARC1; p=reject; rua=mailto:dmarc@serenesolutions.nl,mailto:cantor-d@dmarc.report-uri.com; ruf=mailto:dmarc@serenesolutions.nl; fo=1; pct=100; adkim=s; aspf=s",
   ]
 }
 

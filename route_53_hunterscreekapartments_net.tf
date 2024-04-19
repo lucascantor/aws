@@ -87,7 +87,7 @@ resource "aws_route53_record" "dmarc_hunterscreekapartments_net__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DMARC1; p=reject; pct=100; fo=1; adkim=s; aspf=s; rua=mailto:dmarc@hunterscreekapartments.net; ruf=mailto:dmarc@hunterscreekapartments.net",
+    "v=DMARC1; p=reject; rua=mailto:dmarc@hunterscreekapartments.net,mailto:cantor-d@dmarc.report-uri.com; ruf=mailto:dmarc@hunterscreekapartments.net; fo=1; pct=100; adkim=s; aspf=s",
   ]
 }
 

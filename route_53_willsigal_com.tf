@@ -74,7 +74,7 @@ resource "aws_route53_record" "dmarc_willsigal_com__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s;fo=1;rua=mailto:dmarc@willsigal.com,mailto:dmarc@willsigal.com",
+    "v=DMARC1; p=reject; rua=mailto:dmarc@willsigal.com,mailto:cantor-d@dmarc.report-uri.com; ruf=mailto:dmarc@willsigal.com; fo=1; pct=100; adkim=s; aspf=s",
   ]
 }
 

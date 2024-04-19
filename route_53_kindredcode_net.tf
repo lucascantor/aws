@@ -74,7 +74,7 @@ resource "aws_route53_record" "dmarc_kindredcode_net__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s;fo=1;rua=mailto:dmarc@kindredcode.net,mailto:dmarc@kindredcode.net",
+    "v=DMARC1; p=reject; rua=mailto:dmarc@kindredcode.net,mailto:cantor-d@dmarc.report-uri.com; ruf=mailto:dmarc@kindredcode.net; fo=1; pct=100; adkim=s; aspf=s",
   ]
 }
 
