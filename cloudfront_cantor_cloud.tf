@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "cantor_cloud" {
     ]
     cache_policy_id            = local.managed_cloudfront_caching_optimized_policy_id
     compress                   = true
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_security_headers_policy.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_legacy.id
     target_origin_id           = "S3-cantor.cloud"
     viewer_protocol_policy     = "redirect-to-https"
   }
