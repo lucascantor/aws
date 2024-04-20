@@ -35,7 +35,7 @@ resource "aws_cloudfront_distribution" "hunterscreekapartments_net" {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.url_rewrite.arn
     }
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_legacy.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_default.id
     target_origin_id           = "S3-hunterscreekapartments.net"
     viewer_protocol_policy     = "redirect-to-https"
   }
