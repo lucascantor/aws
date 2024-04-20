@@ -48,6 +48,18 @@ resource "aws_route53_record" "www_unitizer_com__A" {
   }
 }
 
+resource "aws_route53_record" "mta_sts_unitizer_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["unitizer.com"].zone_id
+  name    = "mta-sts.unitizer.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.mta_sts_unitizer_com.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_route53_record" "unitizer_com__MX" {
   zone_id = aws_route53_zone.hosted_zones["unitizer.com"].zone_id
   name    = "unitizer.com"
@@ -95,6 +107,26 @@ resource "aws_route53_record" "selector2_domainkey_unitizer_com__CNAME" {
   ttl     = "3600"
   records = [
     "selector2-unitizer-com._domainkey.unitizer.onmicrosoft.com",
+  ]
+}
+
+resource "aws_route53_record" "smtp_tls_unitizer_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["unitizer.com"].zone_id
+  name    = "_smtp._tls.unitizer.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=TLSRPTv1; rua=mailto:mta-sts@unitizer.com,mailto:cantor-d@tlsrpt.report-uri.com",
+  ]
+}
+
+resource "aws_route53_record" "mta_sts_unitizer_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["unitizer.com"].zone_id
+  name    = "_mta-sts.unitizer.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=STSv1; id=2024042001",
   ]
 }
 
