@@ -87,7 +87,7 @@ resource "aws_route53_record" "dmarc_cantor_cloud__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DMARC1; p=reject; rua=mailto:dmarc@cantor.cloud,mailto:cantor-d@dmarc.report-uri.com; ruf=mailto:dmarc@cantor.cloud; fo=1; pct=100; adkim=s; aspf=s",
+    "v=DMARC1; p=reject; rua=mailto:dmarc@cantor.cloud,mailto:cantor-d@dmarc.report-uri.com,mailto:3bb7ee9fe7cbd3cd3bfe059a02609870@snowy-hill-2286.tines.email; ruf=mailto:dmarc@cantor.cloud; fo=1; pct=100; adkim=s; aspf=s",
   ]
 }
 
@@ -107,7 +107,7 @@ resource "aws_route53_record" "smtp_tls_cantor_cloud__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=TLSRPTv1; rua=mailto:mta-sts@cantor.cloud,mailto:cantor-d@tlsrpt.report-uri.com",
+    "v=TLSRPTv1; rua=mailto:mta-sts@cantor.cloud,mailto:cantor-d@tlsrpt.report-uri.com,mailto:d2290e8c03961f8c565a2ec791928515@snowy-hill-2286.tines.email",
   ]
 }
 

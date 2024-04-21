@@ -83,14 +83,14 @@ variable "content_security_policy" {
   description = "The policy directives and their values that CloudFront includes as values for the Content-Security-Policy HTTP response header"
   type        = map(string)
   default = {
-    default : "default-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; media-src 'self'; script-src 'self' 'sha256-fLy5yEG00y7Rwvrfq4J1+3TjE9gbDJ2fhb0Xhlt2iA8=' 'sha256-x7uqmIfkWN6rzmKPSBW2prET6ykmbHpGX0HYPMksA7g='; manifest-src 'self'; frame-src 'self'; img-src 'self' https://cdn.lucascantor.com; style-src 'self' 'sha256-l0uXmF1GYYYZ1FYPD8nS8UqzIwKdCYjHdi6fmVn+7dI=' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; report-uri https://cantor.report-uri.com/r/d/csp/enforce; report-to default",
+    default : "default-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; media-src 'self'; script-src 'self' 'sha256-fLy5yEG00y7Rwvrfq4J1+3TjE9gbDJ2fhb0Xhlt2iA8=' 'sha256-x7uqmIfkWN6rzmKPSBW2prET6ykmbHpGX0HYPMksA7g='; manifest-src 'self'; frame-src 'self'; img-src 'self' https://cdn.lucascantor.com; style-src 'self' 'sha256-l0uXmF1GYYYZ1FYPD8nS8UqzIwKdCYjHdi6fmVn+7dI=' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; report-uri https://cantor.report-uri.com/r/d/csp/enforce https://snowy-hill-2286.tines.com/webhook/5dd6c7d67a74445fbc62b9a95a1af879/3749959c41bf2b81550d4a0db942b5fe; report-to default",
   }
 }
 
 variable "report_to_response_header" {
   description = "The Report-To HTTP response header that CloudFront includes in the response to the viewer for the reporting API"
   type        = string
-  default     = "{\"group\":\"default\",\"max_age\":31536000,\"endpoints\":[{\"url\":\"https://cantor.report-uri.com/a/d/g\"}],\"include_subdomains\":true}"
+  default     = "{\"group\":\"default\",\"max_age\":31536000,\"endpoints\":[{\"url\":\"https://cantor.report-uri.com/a/d/g\"},{\"url\":\"https://snowy-hill-2286.tines.com/webhook/16361b6257e047ac37509f56764fc644/3749959c41bf2b81550d4a0db942b5fe\"}],\"include_subdomains\":true}"
 }
 
 variable "nel_response_header" {

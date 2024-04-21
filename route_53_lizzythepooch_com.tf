@@ -74,7 +74,7 @@ resource "aws_route53_record" "dmarc_lizzythepooch_com__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=DMARC1; p=reject; rua=mailto:dmarc@lizzythepooch.com,mailto:cantor-d@dmarc.report-uri.com; ruf=mailto:dmarc@lizzythepooch.com; fo=1; pct=100; adkim=s; aspf=s",
+    "v=DMARC1; p=reject; rua=mailto:dmarc@lizzythepooch.com,mailto:cantor-d@dmarc.report-uri.com,mailto:3bb7ee9fe7cbd3cd3bfe059a02609870@snowy-hill-2286.tines.email; ruf=mailto:dmarc@lizzythepooch.com; fo=1; pct=100; adkim=s; aspf=s",
   ]
 }
 
