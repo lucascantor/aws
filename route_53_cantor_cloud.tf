@@ -111,12 +111,19 @@ resource "aws_route53_record" "smtp_tls_cantor_cloud__TXT" {
   ]
 }
 
+resource "time_static" "mta_sts_cantor_cloud__TXT" {
+  triggers = {
+    # update when mta-sts.txt file content changes
+    version = filemd5("websites/mta-sts.cantor.cloud/.well-known/mta-sts.txt")
+  }
+}
+
 resource "aws_route53_record" "mta_sts_cantor_cloud__TXT" {
   zone_id = aws_route53_zone.hosted_zones["cantor.cloud"].zone_id
   name    = "_mta-sts.cantor.cloud"
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=STSv1; id=20240503161217Z;",
+    "v=STSv1; id=${time_static.mta_sts_cantor_cloud__TXT.id};",
   ]
 }
