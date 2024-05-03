@@ -126,7 +126,7 @@ resource "aws_route53_record" "mta_sts_unitizer_com__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=STSv1; id=2024042001",
+    "v=STSv1; id=20240503162008Z;",
   ]
 }
 
