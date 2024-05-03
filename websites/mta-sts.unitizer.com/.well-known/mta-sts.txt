@@ -1,4 +1,4 @@
 version: STSv1
-mode: testing
+mode: enforce
 mx: *.mail.protection.outlook.com
 max_age: 86400
