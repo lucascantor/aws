@@ -11,6 +11,11 @@ kindredcode.com,${kindredcode_com_cloudfront_distribution_id}
 lizzythepooch.com,${lizzythepooch_com_cloudfront_distribution_id}
 lucascantor.com,${lucascantor_com_cloudfront_distribution_id}
 mta-sts.cantor.cloud,${mta_sts_cantor_cloud_cloudfront_distribution_id}
+mta-sts.centerpointwest.com,none
+mta-sts.centerpointwestapartments.com,none
+mta-sts.hunterscreekapartments.net,none
+mta-sts.kindredcode.com,none
+mta-sts.serenesolutions.nl,none
 mta-sts.unitizer.com,${mta_sts_unitizer_com_cloudfront_distribution_id}
 nathanielsigal.com,${nathanielsigal_com_cloudfront_distribution_id}
 ronaldcantor.com,${ronaldcantor_com_cloudfront_distribution_id}
