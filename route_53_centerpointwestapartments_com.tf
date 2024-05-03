@@ -48,6 +48,18 @@ resource "aws_route53_record" "www_centerpointwestapartments_com__A" {
   }
 }
 
+resource "aws_route53_record" "mta_sts_centerpointwestapartments_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["centerpointwestapartments.com"].zone_id
+  name    = "mta-sts.centerpointwestapartments.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.mta_sts_centerpointwestapartments_com.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_route53_record" "centerpointwestapartments_com__MX" {
   zone_id = aws_route53_zone.hosted_zones["centerpointwestapartments.com"].zone_id
   name    = "centerpointwestapartments.com"
@@ -95,6 +107,26 @@ resource "aws_route53_record" "selector2_domainkey_centerpointwestapartments_com
   ttl     = "3600"
   records = [
     "selector2-centerpointwestapartments-com._domainkey.unitizer.onmicrosoft.com",
+  ]
+}
+
+resource "aws_route53_record" "smtp_tls_centerpointwestapartments_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["centerpointwestapartments.com"].zone_id
+  name    = "_smtp._tls.centerpointwestapartments.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=TLSRPTv1; rua=mailto:mta-sts@centerpointwestapartments.com,mailto:cantor-d@tlsrpt.report-uri.com",
+  ]
+}
+
+resource "aws_route53_record" "mta_sts_centerpointwestapartments_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["centerpointwestapartments.com"].zone_id
+  name    = "_mta-sts.centerpointwestapartments.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=STSv1; id=20240503173040Z;",
   ]
 }
 

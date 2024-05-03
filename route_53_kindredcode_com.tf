@@ -48,6 +48,18 @@ resource "aws_route53_record" "www_kindredcode_com__A" {
   }
 }
 
+resource "aws_route53_record" "mta_sts_kindredcode_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["kindredcode.com"].zone_id
+  name    = "mta-sts.kindredcode.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.mta_sts_kindredcode_com.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_route53_record" "kindredcode_com__MX" {
   zone_id = aws_route53_zone.hosted_zones["kindredcode.com"].zone_id
   name    = "kindredcode.com"
@@ -86,6 +98,26 @@ resource "aws_route53_record" "google_domainkey_kindredcode_com__TXT" {
   ttl     = "3600"
   records = [
     "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrvhdbY90xIbQsqyZLXYOeL7z7q55KLPHzFnaZ1k+WQ1BLaB/gZK6z9GzSaUNNfdnULLsBzd8D3zqFtsjpw+qQ+/B0wjY0NhuSrWx7DyjZYIRwyGa0aUc3LP+fNIdWf+E/v+EcxbMKQk7+NJFljp3zI4OBZTvOyxEkKSVCySkjBwIDAQAB",
+  ]
+}
+
+resource "aws_route53_record" "smtp_tls_kindredcode_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["kindredcode.com"].zone_id
+  name    = "_smtp._tls.kindredcode.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=TLSRPTv1; rua=mailto:mta-sts@kindredcode.com,mailto:cantor-d@tlsrpt.report-uri.com",
+  ]
+}
+
+resource "aws_route53_record" "mta_sts_kindredcode_com__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["kindredcode.com"].zone_id
+  name    = "_mta-sts.kindredcode.com"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=STSv1; id=20240503173153Z;",
   ]
 }
 

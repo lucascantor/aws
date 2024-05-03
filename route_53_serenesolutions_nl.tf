@@ -48,6 +48,18 @@ resource "aws_route53_record" "www_serenesolutions_nl__A" {
   }
 }
 
+resource "aws_route53_record" "mta_sts_serenesolutions_nl__A" {
+  zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
+  name    = "mta-sts.serenesolutions.nl"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.mta_sts_serenesolutions_nl.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_route53_record" "serenesolutions_nl__MX" {
   zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
   name    = "serenesolutions.nl"
@@ -86,5 +98,25 @@ resource "aws_route53_record" "google_domainkey_serenesolutions_nl__TXT" {
   ttl     = "3600"
   records = [
     "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCgwCEE2v233Wf8QO7eJrBfzFLGNrgwJmXbCKHpKm2yzjeGgPAsLwQLInMLLgvOcDZb0L54s1qfPhwdmI0QC4auZxf7rtRf+6+CsE0zCKtnJJSAcimLno/FbpUZx28M7/khubx/a3zfPFJxlTr7fkUg1ypb0KsUmaC1pE2WF5Ur7wIDAQAB",
+  ]
+}
+
+resource "aws_route53_record" "smtp_tls_serenesolutions_nl__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
+  name    = "_smtp._tls.serenesolutions.nl"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=TLSRPTv1; rua=mailto:mta-sts@serenesolutions.nl,mailto:cantor-d@tlsrpt.report-uri.com",
+  ]
+}
+
+resource "aws_route53_record" "mta_sts_serenesolutions_nl__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
+  name    = "_mta-sts.serenesolutions.nl"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=STSv1; id=20240503173213Z;",
   ]
 }

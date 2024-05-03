@@ -60,6 +60,18 @@ resource "aws_route53_record" "beta_hunterscreekapartments_net__A" {
   }
 }
 
+resource "aws_route53_record" "mta_sts_hunterscreekapartments_net__A" {
+  zone_id = aws_route53_zone.hosted_zones["hunterscreekapartments.net"].zone_id
+  name    = "mta-sts.hunterscreekapartments.net"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.mta_sts_hunterscreekapartments_net.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_route53_record" "hunterscreekapartments_net__MX" {
   zone_id = aws_route53_zone.hosted_zones["hunterscreekapartments.net"].zone_id
   name    = "hunterscreekapartments.net"
@@ -168,6 +180,26 @@ resource "aws_route53_record" "stripe_x27kimkgkei3tfaxbpwaxbbtry4ysxzf_domainkey
   ttl     = "3600"
   records = [
     "x27kimkgkei3tfaxbpwaxbbtry4ysxzf.dkim.custom-email-domain.stripe.com.",
+  ]
+}
+
+resource "aws_route53_record" "smtp_tls_hunterscreekapartments_net__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["hunterscreekapartments.net"].zone_id
+  name    = "_smtp._tls.hunterscreekapartments.net"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=TLSRPTv1; rua=mailto:mta-sts@hunterscreekapartments.net,mailto:cantor-d@tlsrpt.report-uri.com",
+  ]
+}
+
+resource "aws_route53_record" "mta_sts_hunterscreekapartments_net__TXT" {
+  zone_id = aws_route53_zone.hosted_zones["hunterscreekapartments.net"].zone_id
+  name    = "_mta-sts.hunterscreekapartments.net"
+  type    = "TXT"
+  ttl     = "3600"
+  records = [
+    "v=STSv1; id=20240503173136Z;",
   ]
 }
 
