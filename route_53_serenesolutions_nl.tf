@@ -111,12 +111,19 @@ resource "aws_route53_record" "smtp_tls_serenesolutions_nl__TXT" {
   ]
 }
 
+resource "time_static" "mta_sts_serenesolutions_nl__TXT" {
+  triggers = {
+    # update when mta-sts.txt file content changes
+    version = filemd5("websites/mta-sts.serenesolutions.nl/.well-known/mta-sts.txt")
+  }
+}
+
 resource "aws_route53_record" "mta_sts_serenesolutions_nl__TXT" {
   zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
   name    = "_mta-sts.serenesolutions.nl"
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=STSv1; id=20240503173213Z;",
+    "v=STSv1; id=${time_static.mta_sts_serenesolutions_nl__TXT.id};",
   ]
 }

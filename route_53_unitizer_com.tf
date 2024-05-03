@@ -120,13 +120,20 @@ resource "aws_route53_record" "smtp_tls_unitizer_com__TXT" {
   ]
 }
 
+resource "time_static" "mta_sts_unitizer_com__TXT" {
+  triggers = {
+    # update when mta-sts.txt file content changes
+    version = filemd5("websites/mta-sts.unitizer.com/.well-known/mta-sts.txt")
+  }
+}
+
 resource "aws_route53_record" "mta_sts_unitizer_com__TXT" {
   zone_id = aws_route53_zone.hosted_zones["unitizer.com"].zone_id
   name    = "_mta-sts.unitizer.com"
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=STSv1; id=20240503162008Z;",
+    "v=STSv1; id=${time_static.mta_sts_unitizer_com__TXT.id};",
   ]
 }
 

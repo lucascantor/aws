@@ -193,13 +193,20 @@ resource "aws_route53_record" "smtp_tls_hunterscreekapartments_net__TXT" {
   ]
 }
 
+resource "time_static" "mta_sts_hunterscreekapartments_net__TXT" {
+  triggers = {
+    # update when mta-sts.txt file content changes
+    version = filemd5("websites/mta-sts.hunterscreekapartments.net/.well-known/mta-sts.txt")
+  }
+}
+
 resource "aws_route53_record" "mta_sts_hunterscreekapartments_net__TXT" {
   zone_id = aws_route53_zone.hosted_zones["hunterscreekapartments.net"].zone_id
   name    = "_mta-sts.hunterscreekapartments.net"
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=STSv1; id=20240503173136Z;",
+    "v=STSv1; id=${time_static.mta_sts_hunterscreekapartments_net__TXT.id};",
   ]
 }
 
