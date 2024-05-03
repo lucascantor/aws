@@ -124,6 +124,6 @@ resource "aws_route53_record" "mta_sts_serenesolutions_nl__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=STSv1; id=${time_static.mta_sts_serenesolutions_nl__TXT.id};",
+    "v=STSv1; id=${time_static.mta_sts_serenesolutions_nl__TXT.unix};",
   ]
 }
