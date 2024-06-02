@@ -189,7 +189,7 @@ resource "aws_route53_record" "smtp_tls_hunterscreekapartments_net__TXT" {
   type    = "TXT"
   ttl     = "3600"
   records = [
-    "v=TLSRPTv1; rua=mailto:mta-sts@hunterscreekapartments.net,mailto:cantor-d@tlsrpt.report-uri.com",
+    "v=TLSRPTv1; rua=mailto:cantor-d@tlsrpt.report-uri.com,mailto:mta-sts@hunterscreekapartments.net",
   ]
 }
 
