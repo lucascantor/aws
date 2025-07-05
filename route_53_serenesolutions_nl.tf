@@ -60,6 +60,16 @@ resource "aws_route53_record" "mta_sts_serenesolutions_nl__A" {
   }
 }
 
+resource "aws_route53_record" "fleet_serenesolutions_nl__CNAME" {
+  zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
+  name    = "fleet.serenesolutions.nl"
+  type    = "CNAME"
+  ttl     = "300"
+  records = [
+    "fleet-l1qy.onrender.com",
+  ]
+}
+
 resource "aws_route53_record" "serenesolutions_nl__MX" {
   zone_id = aws_route53_zone.hosted_zones["serenesolutions.nl"].zone_id
   name    = "serenesolutions.nl"
