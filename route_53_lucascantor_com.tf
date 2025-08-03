@@ -29,31 +29,33 @@ resource "aws_route53_record" "lucascantor_com__A" {
   name    = "lucascantor.com"
   type    = "A"
 
-  records = [
-    "178.128.137.126",
-  ]
+  alias {
+    name                   = aws_cloudfront_distribution.lucascantor_com.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
 }
 
-resource "aws_route53_record" "www_lucascantor_com__CNAME" {
+resource "aws_route53_record" "www_lucascantor_com__A" {
   zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
   name    = "www.lucascantor.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.lucascantor_com.domain_name
+    zone_id                = var.cloudfront_distribution_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "blog_lucascantor_com__CNAME" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "blog.lucascantor.com"
   type    = "CNAME"
   ttl     = "3600"
   records = [
     "lucas-cantor.ghost.io",
   ]
-}
-
-resource "aws_route53_record" "blog_lucascantor_com__A" {
-  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
-  name    = "blog.lucascantor.com"
-  type    = "A"
-
-  alias {
-    name                   = aws_cloudfront_distribution.blog_lucascantor_com.domain_name
-    zone_id                = var.cloudfront_distribution_zone_id
-    evaluate_target_health = false
-  }
 }
 
 resource "aws_route53_record" "cdn_lucascantor_com__A" {
