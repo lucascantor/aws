@@ -24,12 +24,12 @@ resource "aws_route53_record" "lucascantor_com__NS" {
   ]
 }
 
-resource "aws_route53_record" "lucascantor_com__CNAME" {
+resource "aws_route53_record" "lucascantor_com__A" {
   zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
   name    = "lucascantor.com"
-  type    = "CNAME"
+  type    = "A"
   ttl     = "300"
-  records = ["lucas-cantor.ghost.io"]
+  records = ["178.128.137.126"]
 }
 
 resource "aws_route53_record" "www_lucascantor_com__A" {
