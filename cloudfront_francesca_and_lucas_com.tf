@@ -16,8 +16,12 @@ resource "aws_cloudfront_distribution" "francesca_and_lucas_com" {
       "GET",
       "HEAD",
     ]
-    cache_policy_id            = local.managed_cloudfront_caching_optimized_policy_id
-    compress                   = true
+    cache_policy_id = local.managed_cloudfront_caching_optimized_policy_id
+    compress        = true
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.url_rewrite.arn
+    }
     response_headers_policy_id = aws_cloudfront_response_headers_policy.custom_response_headers_policy_default.id
     target_origin_id           = "S3-francesca-and-lucas.com"
     viewer_protocol_policy     = "redirect-to-https"
