@@ -16,8 +16,8 @@ resource "aws_cloudfront_distribution" "lizzythepooch_com" {
       "GET",
       "HEAD",
     ]
-    cache_policy_id            = local.managed_cloudfront_caching_optimized_policy_id
-    compress                   = true
+    cache_policy_id = local.managed_cloudfront_caching_optimized_policy_id
+    compress        = true
     function_association {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.url_rewrite.arn
