@@ -24,28 +24,20 @@ resource "aws_route53_record" "lucascantor_com__NS" {
   ]
 }
 
-resource "aws_route53_record" "lucascantor_com__A" {
+resource "aws_route53_record" "lucascantor_com__CNAME" {
   zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
   name    = "lucascantor.com"
-  type    = "A"
-
-  alias {
-    name                   = aws_cloudfront_distribution.lucascantor_com.domain_name
-    zone_id                = var.cloudfront_distribution_zone_id
-    evaluate_target_health = false
-  }
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["lucas-cantor.ghost.io"]
 }
 
 resource "aws_route53_record" "www_lucascantor_com__A" {
   zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
   name    = "www.lucascantor.com"
   type    = "A"
-
-  alias {
-    name                   = aws_cloudfront_distribution.lucascantor_com.domain_name
-    zone_id                = var.cloudfront_distribution_zone_id
-    evaluate_target_health = false
-  }
+  ttl     = "300"
+  records = ["178.128.137.126"]
 }
 
 resource "aws_route53_record" "blog_lucascantor_com__A" {
