@@ -90,7 +90,7 @@ resource "aws_lambda_function" "cloudfront_invalidation_lambda" {
   function_name    = "cloudfront_invalidation_lambda"
   handler          = "lambda_invalidate_cloudfront.lambda_handler"
   publish          = true
-  runtime          = "python3.9"
+  runtime          = "python3.13"
   role             = aws_iam_role.policy_for_cloudfront_invalidation_lambda.arn
   source_code_hash = data.archive_file.cloudfront_invalidation_lambda_archive_file.output_base64sha256
 }
