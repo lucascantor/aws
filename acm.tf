@@ -201,10 +201,6 @@ resource "aws_acm_certificate" "kindredcode_com" {
   domain_name = "kindredcode.com"
   subject_alternative_names = [
     "*.kindredcode.com",
-    "kindredcode.net",
-    "*.kindredcode.net",
-    "kindredcode.org",
-    "*.kindredcode.org",
   ]
   validation_method = "DNS"
 }

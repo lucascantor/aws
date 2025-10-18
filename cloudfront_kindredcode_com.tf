@@ -5,10 +5,6 @@ resource "aws_cloudfront_distribution" "kindredcode_com" {
   aliases = [
     "kindredcode.com",
     "www.kindredcode.com",
-    "kindredcode.net",
-    "www.kindredcode.net",
-    "kindredcode.org",
-    "www.kindredcode.org",
   ]
   custom_error_response {
     error_caching_min_ttl = 300
