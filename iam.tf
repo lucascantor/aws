@@ -102,12 +102,11 @@ resource "aws_iam_role" "github_actions_sts_assumption_role_aws" {
      },
      "Action": "sts:AssumeRoleWithWebIdentity",
      "Condition": {
+       "StringEquals": {
+         "token.actions.githubusercontent.com:aud": "${var.github_actions_aws_audience}"
+       },
        "StringLike": {
-         "token.actions.githubusercontent.com:aud": "${var.github_actions_aws_audience}",
-         "token.actions.githubusercontent.com:sub": [
-           "repo:${var.github_actions_organization_name}/${var.github_actions_repo_name_aws}:ref:refs/heads/main",
-           "repo:${var.github_actions_organization_name}/${var.github_actions_repo_name_aws}:ref:refs/heads/migrate"
-         ]
+         "token.actions.githubusercontent.com:sub": "repo:${var.github_actions_organization_name}/${var.github_actions_repo_name_aws}:ref:refs/heads/*"
        }
      }
    }

@@ -14,18 +14,22 @@ env:
 # Set required permissions of the GITHUB_TOKEN
 permissions:
   contents: read # Required for actions/checkout
+  pull-requests: write # Required for bot comments on PRs
   id-token: write # Required for requesting the JWT
 
 jobs:
   terraform:
     name: "Terraform Plan"
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -34,13 +38,6 @@ jobs:
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
-
-      - name: Configure AWS Credentials
-        id: creds
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ env.AWS_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
 
       - name: Terraform Init
         id: init
