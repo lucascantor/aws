@@ -1,44 +1,59 @@
 name: "Terraform Apply"
 
+concurrency:
+  group: terraform-apply-${{ github.ref_name }}
+  cancel-in-progress: false
+
 on:
   push:
     branches:
       - main
 
 env:
-  TF_CLOUD_ORGANIZATION: "unitizer"
-  TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "aws"
-  CONFIG_DIRECTORY: "./"
+  AWS_ROLE_ARN: "arn:aws:iam::042672036044:role/github-actions-sts-assumption-role-aws"
+  AWS_REGION: "us-east-1"
+
+# Set required permissions of the GITHUB_TOKEN
+permissions:
+  contents: read # Required for actions/checkout
+  id-token: write # Required for requesting the JWT
 
 jobs:
   terraform:
     name: "Terraform Apply"
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Upload Configuration
-        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.1.1
-        id: apply-upload
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          workspace: ${{ env.TF_WORKSPACE }}
-          directory: ${{ env.CONFIG_DIRECTORY }}
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
-      - name: Create Apply Run
-        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.1.1
-        id: apply-run
-        with:
-          workspace: ${{ env.TF_WORKSPACE }}
-          configuration_version: ${{ steps.apply-upload.outputs.configuration_version_id }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
-      - name: Apply
-        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.1.1
-        if: fromJSON(steps.apply-run.outputs.payload).data.attributes.actions.IsConfirmable
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Check for failures
+        if: steps.fmt.outcome == 'failure'
+        run: |
+          echo "One or more Terraform steps failed. Workflow cannot complete."
+          exit 1
+
+      - name: Terraform Apply
         id: apply
-        with:
-          run: ${{ steps.apply-run.outputs.run_id }}
-          comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
+        run: terraform apply -auto-approve
