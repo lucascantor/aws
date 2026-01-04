@@ -38,7 +38,6 @@ jobs:
         continue-on-error: true
 
       - name: Configure AWS Credentials
-        id: creds
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
