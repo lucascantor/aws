@@ -5,15 +5,14 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 6.2.0"
+      version = "~> 6"
     }
   }
-  cloud {
-    organization = "unitizer"
-
-    workspaces {
-      name = "aws"
-    }
+  backend "s3" {
+    region       = "us-east-1"
+    bucket       = "cantor-terraform"
+    key          = "terraform.tfstate"
+    use_lockfile = true
   }
 }
 
