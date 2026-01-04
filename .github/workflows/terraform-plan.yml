@@ -55,7 +55,7 @@ jobs:
       - uses: actions/github-script@v7
         if: github.event_name == 'pull_request'
         env:
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+          PLAN: "${{ steps.plan.outputs.stdout }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -69,8 +69,22 @@ jobs:
               return comment.user.type === 'Bot' && comment.body.includes('Terraform Format and Style')
             })
 
-            // 2. Prepare format of the comment
-            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            // 2. Process the plan output
+            const fullPlan = process.env.PLAN || '';
+            const marker = 'Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:';
+            let trimmedPlan = fullPlan;
+            let wasTrimmed = false;
+
+            // Find the marker and keep everything after it
+            const markerIndex = fullPlan.indexOf(marker);
+            if (markerIndex !== -1) {
+              trimmedPlan = fullPlan.substring(markerIndex + marker.length).trim();
+              wasTrimmed = true;
+            }
+
+            // 3. Build the comment parts (without the plan)
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const header = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
             <details><summary>Validation Output</summary>
@@ -85,28 +99,64 @@ jobs:
 
             <details><summary>Show Plan</summary>
 
-            \`\`\`\n
-            ${process.env.PLAN}
-            \`\`\`
+            \`\`\`\n`;
+
+            const planFooter = `\`\`\`
 
             </details>
 
+            📋 [View full plan in GitHub Actions](${runUrl})
+
             *Pusher: \`${{ github.actor }}\`, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ github.workspace }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
-            // 3. If we have a comment, update it, otherwise create a new one
+            // 4. Calculate available space for the plan
+            const MAX_LENGTH = 65536;
+            const fixedContentLength = header.length + planFooter.length;
+            const availablePlanLength = MAX_LENGTH - fixedContentLength - 100; // 100 char buffer for safety
+
+            // 5. Trim the plan if needed (from the beginning)
+            let trimMessage = '';
+            if (trimmedPlan.length > availablePlanLength) {
+              const trimAmount = trimmedPlan.length - availablePlanLength;
+              trimmedPlan = trimmedPlan.substring(trimAmount);
+              trimMessage = `... (${trimAmount} characters trimmed from beginning) ...\n\n`;
+            }
+
+            // 6. Build the initial output
+            let output = header + trimMessage + trimmedPlan + planFooter;
+
+            // 7. Final safety check - if still too long, trim more aggressively from the beginning
+            if (output.length > MAX_LENGTH) {
+              const excess = output.length - MAX_LENGTH + 200; // Extra buffer for safety
+              // Find where the plan content starts (after header and trim message)
+              const planStartIndex = header.length + trimMessage.length;
+              // Extract the current plan content
+              const currentPlanContent = output.substring(planStartIndex, output.length - planFooter.length);
+              // Trim more from the beginning of the plan
+              const newTrimmedContent = currentPlanContent.substring(excess);
+              // Calculate total trimmed (accounting for initial marker trim if it happened)
+              const originalPlanLength = wasTrimmed ? (fullPlan.length - markerIndex - marker.length) : fullPlan.length;
+              const totalTrimmed = originalPlanLength - newTrimmedContent.length;
+              // Rebuild output with updated trim message
+              output = header + `... (${totalTrimmed} characters trimmed from beginning) ...\n\n${newTrimmedContent}` + planFooter;
+            }
+
+            const finalOutput = output;
+
+            // 8. If we have a comment, update it, otherwise create a new one
             if (botComment) {
               github.rest.issues.updateComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 comment_id: botComment.id,
-                body: output
+                body: finalOutput
               })
             } else {
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: output
+                body: finalOutput
               })
             }
 
