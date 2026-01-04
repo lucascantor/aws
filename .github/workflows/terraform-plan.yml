@@ -69,21 +69,44 @@ jobs:
               return comment.user.type === 'Bot' && comment.body.includes('Terraform Format and Style')
             })
 
-            // 2. Process the plan output
+            // 2. Process the plan output - trim all lines above and including the last "Refreshing state..." line
             const fullPlan = process.env.PLAN || '';
-            const marker = 'Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:';
             let trimmedPlan = fullPlan;
             let wasTrimmed = false;
 
-            // Find the marker and keep everything after it
-            const markerIndex = fullPlan.indexOf(marker);
-            if (markerIndex !== -1) {
-              trimmedPlan = fullPlan.substring(markerIndex + marker.length).trim();
+            // Split into lines and find the last line containing "Refreshing state..."
+            const lines = fullPlan.split('\n');
+            let lastRefreshingStateIndex = -1;
+
+            for (let i = lines.length - 1; i >= 0; i--) {
+              if (lines[i].includes('Refreshing state...')) {
+                lastRefreshingStateIndex = i;
+                break;
+              }
+            }
+
+            // If found, keep everything after that line
+            if (lastRefreshingStateIndex !== -1) {
+              trimmedPlan = lines.slice(lastRefreshingStateIndex + 1).join('\n').trim();
               wasTrimmed = true;
             }
 
-            // 3. Build the comment parts (without the plan)
-            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            // 3. Get the job ID for the current job
+            const { data: jobs } = await github.rest.actions.listJobsForWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            });
+
+            // Find the current job - try context.job first, fall back to "terraform" (the job name in this workflow)
+            const jobName = context.job || 'terraform';
+            const currentJob = jobs.jobs.find(job => job.name === jobName);
+            const jobId = currentJob ? currentJob.id : null;
+
+            // Build the URL - use job-specific URL if we have the job ID, otherwise fall back to run URL
+            const runUrl = jobId 
+              ? `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/job/${jobId}`
+              : `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const header = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
@@ -130,13 +153,13 @@ jobs:
               const excess = output.length - MAX_LENGTH + 200; // Extra buffer for safety
               // Find where the plan content starts (after header and trim message)
               const planStartIndex = header.length + trimMessage.length;
-              // Extract the current plan content
+              // Extract the current plan content (this is just the plan, no trim message)
               const currentPlanContent = output.substring(planStartIndex, output.length - planFooter.length);
               // Trim more from the beginning of the plan
               const newTrimmedContent = currentPlanContent.substring(excess);
-              // Calculate total trimmed (accounting for initial marker trim if it happened)
-              const originalPlanLength = wasTrimmed ? (fullPlan.length - markerIndex - marker.length) : fullPlan.length;
-              const totalTrimmed = originalPlanLength - newTrimmedContent.length;
+              // Calculate total trimmed from the original fullPlan
+              // newTrimmedContent is what remains after all trimming, so total trimmed = original - remaining
+              const totalTrimmed = fullPlan.length - newTrimmedContent.length;
               // Rebuild output with updated trim message
               output = header + `... (${totalTrimmed} characters trimmed from beginning) ...\n\n${newTrimmedContent}` + planFooter;
             }
