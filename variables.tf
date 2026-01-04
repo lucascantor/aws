@@ -16,16 +16,22 @@ variable "github_actions_hostname" {
 variable "github_actions_organization_name" {
   type        = string
   default     = "lucascantor"
-  description = "The name of the GitHub organization to use with AWS"
+  description = "The name of the GitHub organization in which GitHub Actions will authenticate with AWS"
 }
 
-variable "github_actions_repo_name" {
+variable "github_actions_repo_name_aws" {
+  type        = string
+  default     = "aws"
+  description = "The name of a GitHub repo to use with AWS"
+}
+
+variable "github_actions_repo_name_blog_lucascantor_com" {
   type        = string
   default     = "blog.lucascantor.com"
-  description = "The name of the GitHub repo to use with AWS"
+  description = "The name of a GitHub repo to use with AWS"
 }
 
-variable "github_actions_branch_name" {
+variable "github_actions_branch_name_blog_lucascantor_com" {
   type        = string
   default     = "master"
   description = "The name of the GitHub repo branch to use with AWS"
