@@ -1,0 +1,48 @@
+name: Build Eleventy site and deploy it to AWS S3
+
+on:
+  # Runs on pushes targeting the master branch
+  push:
+    branches: ['master']
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Set environment variables
+env:
+  AWS_ROLE_ARN: 'arn:aws:iam::042672036044:role/github-actions-sts-assumption-role'
+  AWS_S3_BUCKET_NAME: 'blog.lucascantor.com'
+  AWS_REGION: 'us-east-1'
+
+# Sets required permissions of the GITHUB_TOKEN
+permissions:
+  contents: read # Required for actions/checkout
+  id-token: write # Required for requesting the JWT
+
+jobs:
+  # Build and deploy job
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'node'
+          check-latest: true
+
+      - name: Install dependencies & build site
+        run: |
+          npm install
+          npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy site to S3
+        run: |
+          aws s3 sync ./_site s3://${{ env.AWS_S3_BUCKET_NAME }}/ --delete
