@@ -16,6 +16,7 @@ permissions:
   contents: read # Required for actions/checkout
   pull-requests: write # Required for bot comments on PRs
   id-token: write # Required for requesting the JWT
+  actions: read # Required to list jobs for workflow runs
 
 jobs:
   terraform:
@@ -124,7 +125,7 @@ jobs:
 
             \`\`\`\n`;
 
-            const planFooter = `\`\`\`
+            const planFooter = `\n\`\`\`
 
             </details>
 
