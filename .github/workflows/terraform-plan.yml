@@ -99,8 +99,9 @@ jobs:
               run_id: context.runId,
             });
 
-            // Find the current job - try context.job first, fall back to "terraform" (the job name in this workflow)
-            const jobName = context.job || 'terraform';
+            // Find the current job - use the actual job name from the workflow
+            // The job name is "Terraform Plan" as defined in the workflow
+            const jobName = 'Terraform Plan';
             const currentJob = jobs.jobs.find(job => job.name === jobName);
             const jobId = currentJob ? currentJob.id : null;
 
@@ -131,7 +132,7 @@ jobs:
 
             📋 [View full plan in GitHub Actions](${runUrl})
 
-            *Pusher: \`${{ github.actor }}\`, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ github.workspace }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            *\`${{ github.workflow }}\` triggered via \`${{ github.event_name }}\` by \`${{ github.actor }}\` in \`${{ github.workspace }}\`*`;
 
             // 4. Calculate available space for the plan
             const MAX_LENGTH = 65536;
