@@ -11,6 +11,11 @@ env:
   AWS_ROLE_ARN: "arn:aws:iam::042672036044:role/github-actions-sts-assumption-role-aws"
   AWS_REGION: "us-east-1"
 
+# Set required permissions of the GITHUB_TOKEN
+permissions:
+  contents: read # Required for actions/checkout
+  id-token: write # Required for requesting the JWT
+
 jobs:
   terraform:
     name: "Terraform Plan"
@@ -31,6 +36,7 @@ jobs:
         continue-on-error: true
 
       - name: Configure AWS Credentials
+        id: creds
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
