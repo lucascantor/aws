@@ -51,7 +51,7 @@ resource "aws_s3_bucket" "s3_buckets" {
 }
 
 resource "aws_s3_bucket" "terraform_backend" {
-  bucket = "cantor_terraform"
+  bucket = "cantor-terraform"
 }
 
 # ------------------------------------------------------------------------------------------
