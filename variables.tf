@@ -59,7 +59,7 @@ variable "content_security_policy" {
   description = "The policy directives and their values that CloudFront includes as values for the Content-Security-Policy HTTP response header"
   type        = map(string)
   default = {
-    default : "default-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; media-src 'self'; script-src 'self' 'sha256-fLy5yEG00y7Rwvrfq4J1+3TjE9gbDJ2fhb0Xhlt2iA8=' 'sha256-x7uqmIfkWN6rzmKPSBW2prET6ykmbHpGX0HYPMksA7g='; manifest-src 'self'; frame-src 'self'; img-src 'self' https://cdn.lucascantor.com; style-src 'self' 'sha256-l0uXmF1GYYYZ1FYPD8nS8UqzIwKdCYjHdi6fmVn+7dI=' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; report-uri https://cantor.report-uri.com/r/d/csp/enforce; report-to default",
+    default : "default-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; media-src 'self'; script-src 'self' 'sha256-fLy5yEG00y7Rwvrfq4J1+3TjE9gbDJ2fhb0Xhlt2iA8=' 'sha256-x7uqmIfkWN6rzmKPSBW2prET6ykmbHpGX0HYPMksA7g=' 'unsafe-inline'; manifest-src 'self'; frame-src 'self'; img-src 'self' data: https://cdn.lucascantor.com; style-src 'self' 'sha256-l0uXmF1GYYYZ1FYPD8nS8UqzIwKdCYjHdi6fmVn+7dI=' https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' data: https://cdn.lucascantor.com https://fonts.googleapis.com https://fonts.gstatic.com https://use.typekit.net; report-uri https://cantor.report-uri.com/r/d/csp/enforce; report-to default; require-trusted-types-for 'script'",
   }
 }
 
