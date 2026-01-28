@@ -2459,6 +2459,61 @@ small.global-question a:hover {
 
 }
 
+/* iMessage Contact Key Verification
+   –––––––––––––––––––––––––––––––––––––––––––––––– */
+.imessage-verification {
+   max-width: 450px;
+   margin-top: 40px;
+   padding-top: 1.5rem;
+   padding-bottom: 0.5rem;
+   padding-left: 1.25rem;
+   border-radius: var(--border-radius);
+   background-color: var(--color-four);
+   font-size: 0.9rem;
+}
+
+.imessage-verification-header {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   margin-bottom: 0.5rem;
+   font-weight: var(--font-weight-one-extra-bold);
+   color: var(--color-font-one);
+}
+
+.imessage-verification-icon {
+   width: 1.25rem;
+   height: 1.25rem;
+   flex-shrink: 0;
+   color: var(--color-font-one);
+}
+
+.imessage-verification-code {
+   display: block;
+   margin: 0 0 0.5rem;
+   padding: 0.5rem 0;
+   word-break: break-all;
+   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+   font-size: 0.8rem;
+   color: var(--color-font-one);
+}
+
+.imessage-verification-link {
+   font-size: 0.85rem;
+   color: var(--color-font-one);
+}
+
+.imessage-verification-link:hover {
+   text-decoration: underline;
+}
+
+@media (max-width:768px) {
+   .imessage-verification {
+      max-width: 100%;
+      margin-top: 25px;
+   }
+}
+
 /* --------------------------------------------------------------------------
    8.Post — Content
    -------------------------------------------------------------------------- */
