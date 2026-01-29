@@ -2466,7 +2466,7 @@ small.global-question a:hover {
    margin-top: 40px;
    padding-top: 1.5rem;
    padding-bottom: 0.5rem;
-   padding-left: 1.25rem;
+   padding-left: 1.5rem;
    border-radius: var(--border-radius);
    background-color: var(--color-four);
    font-size: 0.9rem;
@@ -2482,8 +2482,8 @@ small.global-question a:hover {
 }
 
 .imessage-verification-icon {
-   width: 1.25rem;
-   height: 1.25rem;
+   width: 1.5rem;
+   height: 1.5rem;
    flex-shrink: 0;
    color: var(--color-font-one);
 }
@@ -2494,12 +2494,12 @@ small.global-question a:hover {
    padding: 0.5rem 0;
    word-break: break-all;
    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-   font-size: 0.8rem;
+   font-size: 0.9rem;
    color: var(--color-font-one);
 }
 
 .imessage-verification-link {
-   font-size: 0.85rem;
+   font-size: 1.5rem;
    color: var(--color-font-one);
 }
 
