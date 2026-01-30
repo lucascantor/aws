@@ -65,6 +65,7 @@ resource "aws_route53_record" "francesca_and_lucas_com__TXT" {
   ttl     = "3600"
   records = [
     "v=spf1 -all",
+    "provena45aaa",
   ]
 }
 

@@ -65,6 +65,7 @@ resource "aws_route53_record" "lizzythepooch_com__TXT" {
   ttl     = "3600"
   records = [
     "v=spf1 -all",
+    "proven46bb6d",
   ]
 }
 

@@ -78,6 +78,7 @@ resource "aws_route53_record" "cantor_cloud__TXT" {
   records = [
     "v=spf1 include:_spf.google.com ~all",
     "google-site-verification=uuX66DHR88MjdyQ4UxPoNQyYSazX68cR166T8-vOuX8",
+    "provenb705fc",
   ]
 }
 

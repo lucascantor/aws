@@ -89,6 +89,7 @@ resource "aws_route53_record" "lucascantor_com__TXT" {
   ttl     = "3600"
   records = [
     "v=spf1 -all",
+    "provend183d6",
   ]
 }
 
