@@ -78,6 +78,7 @@ resource "aws_route53_record" "serenesolutions_nl__TXT" {
   records = [
     "v=spf1 include:_spf.google.com ~all",
     "google-site-verification=lvjsUqWjaukRQiH7sv9mGyB57rr03CVDJx3V9IcNWBM",
+    "proven31ed80",
   ]
 }
 
