@@ -40,6 +40,30 @@ resource "aws_route53_record" "www_lucascantor_com__A" {
   records = ["5.78.24.5"]
 }
 
+resource "aws_route53_record" "paste_lucascantor_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "paste.lucascantor.com"
+  type    = "A"
+  ttl     = "300"
+  records = ["5.78.24.5"]
+}
+
+resource "aws_route53_record" "pics_lucascantor_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "pics.lucascantor.com"
+  type    = "A"
+  ttl     = "300"
+  records = ["5.78.24.5"]
+}
+
+resource "aws_route53_record" "status_lucascantor_com__A" {
+  zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
+  name    = "status.lucascantor.com"
+  type    = "A"
+  ttl     = "300"
+  records = ["5.78.24.5"]
+}
+
 resource "aws_route53_record" "blog_lucascantor_com__A" {
   zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
   name    = "blog.lucascantor.com"
