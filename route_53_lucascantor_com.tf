@@ -58,7 +58,7 @@ resource "aws_route53_record" "pics_lucascantor_com__A" {
 
 resource "aws_route53_record" "status_lucascantor_com__A" {
   zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
-  name    = "pics.lucascantor.com"
+  name    = "status.lucascantor.com"
   type    = "A"
   ttl     = "300"
   records = ["5.78.24.5"]
