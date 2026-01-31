@@ -28,24 +28,16 @@ resource "aws_route53_record" "lucascantor_com__A" {
   zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
   name    = "lucascantor.com"
   type    = "A"
-
-  alias {
-    name                   = aws_cloudfront_distribution.lucascantor_com.domain_name
-    zone_id                = var.cloudfront_distribution_zone_id
-    evaluate_target_health = false
-  }
+  ttl     = "300"
+  records = ["5.78.24.5"]
 }
 
 resource "aws_route53_record" "www_lucascantor_com__A" {
   zone_id = aws_route53_zone.hosted_zones["lucascantor.com"].zone_id
   name    = "www.lucascantor.com"
   type    = "A"
-
-  alias {
-    name                   = aws_cloudfront_distribution.lucascantor_com.domain_name
-    zone_id                = var.cloudfront_distribution_zone_id
-    evaluate_target_health = false
-  }
+  ttl     = "300"
+  records = ["5.78.24.5"]
 }
 
 resource "aws_route53_record" "blog_lucascantor_com__A" {
