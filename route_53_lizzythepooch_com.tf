@@ -1,15 +1,6 @@
 # ------------------------------------------------------------------------------------------
 # lizzythepooch.com
 
-import {
-  to = aws_route53_record.lizzythepooch_com__SOA
-  identity = {
-    zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
-    name    = "lizzythepooch.com"
-    type    = "SOA"
-  }
-}
-
 resource "aws_route53_record" "lizzythepooch_com__SOA" {
   zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
   name    = "lizzythepooch.com"
