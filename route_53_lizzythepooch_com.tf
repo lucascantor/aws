@@ -5,7 +5,7 @@ import {
   to = aws_route53_record.lizzythepooch_com__SOA
   identity = {
     zone_id = aws_route53_zone.hosted_zones["lizzythepooch.com"].zone_id
-    name    = "lizzythepooch.com""
+    name    = "lizzythepooch.com"
     type    = "SOA"
   }
 }
