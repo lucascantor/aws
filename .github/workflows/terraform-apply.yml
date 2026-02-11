@@ -38,7 +38,6 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
-        continue-on-error: true
 
       - name: Terraform Init
         id: init
@@ -47,12 +46,6 @@ jobs:
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-
-      - name: Check for failures
-        if: steps.fmt.outcome == 'failure'
-        run: |
-          echo "One or more Terraform steps failed. Workflow cannot complete."
-          exit 1
 
       - name: Terraform Apply
         id: apply
