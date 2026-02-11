@@ -77,63 +77,12 @@ resource "aws_iam_role" "github_actions_sts_assumption_role_aws" {
 EOF
 }
 
-# Role for GitHub Actions to assume for the blog.lucascantor.com repo
-resource "aws_iam_role" "github_actions_sts_assumption_role_blog_lucascantor_com" {
-  name = "github-actions-sts-assumption-role-blog-lucascantor-com"
-
-  assume_role_policy = <<EOF
-{
- "Version": "2012-10-17",
- "Statement": [
-   {
-     "Effect": "Allow",
-     "Principal": {
-       "Federated": "${aws_iam_openid_connect_provider.github_actions.arn}"
-     },
-     "Action": "sts:AssumeRoleWithWebIdentity",
-     "Condition": {
-       "StringEquals": {
-         "token.actions.githubusercontent.com:sub": "repo:${var.github_actions_organization_name}/${var.github_actions_repo_name_blog_lucascantor_com}:ref:refs/heads/${var.github_actions_branch_name_blog_lucascantor_com}",
-         "token.actions.githubusercontent.com:aud": "${var.github_actions_aws_audience}"
-       }
-     }
-   }
- ]
-}
-EOF
-}
-
 # ------------------------------------------------------------------------------------------
 # IAM policies
 
 # AWS-managed admin policy
 data "aws_iam_policy" "admin" {
   name = "AdministratorAccess"
-}
-
-# Policy to grant read-write access to blog.lucascantor.com S3 bucket
-resource "aws_iam_policy" "blog_lucascantor_com_s3" {
-  name   = "blog_lucascantor_com_s3"
-  policy = data.aws_iam_policy_document.blog_lucascantor_com_s3.json
-}
-
-data "aws_iam_policy_document" "blog_lucascantor_com_s3" {
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "s3:List*",
-      "s3:Describe*",
-      "s3:Get*",
-      "s3:PutObject",
-      "s3:DeleteObject"
-    ]
-
-    resources = [
-      "arn:aws:s3:::blog.lucascantor.com",
-      "arn:aws:s3:::blog.lucascantor.com/*",
-    ]
-  }
 }
 
 # Attachment of AWS-managed admin policy to admin group
@@ -146,10 +95,4 @@ resource "aws_iam_group_policy_attachment" "admin_group_admin_policy" {
 resource "aws_iam_role_policy_attachment" "github_actions_sts_assumption_role_aws_admin_policy" {
   role       = aws_iam_role.github_actions_sts_assumption_role_aws.name
   policy_arn = data.aws_iam_policy.admin.arn
-}
-
-# Attachment of policy granting read-write access to blog.lucascantor.com S3 bucket to GitHub Actions STS assumption role for the blog.lucascantor.com repo
-resource "aws_iam_role_policy_attachment" "github_actions_sts_assumption_role_blog_lucascantor_com_s3_policy" {
-  role       = aws_iam_role.github_actions_sts_assumption_role_blog_lucascantor_com.name
-  policy_arn = resource.aws_iam_policy.blog_lucascantor_com_s3.arn
 }
