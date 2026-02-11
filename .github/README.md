@@ -1,6 +1,6 @@
 # aws
 
-Repo to build the `Cantor` AWS org via infrastructure-as-code
+Migrated to [Codeberg](https://codeberg.org/lucascantor/bunny)
 
 ## Build Status
 
